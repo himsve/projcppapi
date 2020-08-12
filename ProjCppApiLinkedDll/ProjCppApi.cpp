@@ -6,6 +6,8 @@
 #include <sqlite3.h>
 #include <windows.h>
 
+const char* resourcePath = "C:/Users/himsve/Miniconda3/share/proj";
+
 int main()
 { 
 	PJ *P = nullptr;
@@ -67,7 +69,7 @@ int main()
 	m_ctxt = (*pProjContextCreate)();
 
 	// Set path til ressursfiler, t.d. ctx- og ct2-filer.
-	const char *const paths[] = { "C:/Users/himsve/Miniconda3/share/proj" };
+	const char *const paths[] = { resourcePath };
 	(*pProjContextSetSearchPaths)(m_ctxt, 1, paths);
 
 	std::cout << "EUREF89: lat lon orto. height: " << c.lpzt.phi << " " << c.lpzt.lam << " " << c.lpzt.z << std::endl;

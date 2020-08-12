@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProjCppApi", "ProjCppApi\ProjCppApi.vcxproj", "{19030EFD-1CA0-4B12-8818-641EAF69093A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProjCppApiLinkedLib", "ProjCppApiLinkedLib\ProjCppApiLinkedLib.vcxproj", "{19030EFD-1CA0-4B12-8818-641EAF69093A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProjCppApiLinkedDll", "ProjCppApiLinkedDll\ProjCppApiLinkedDll.vcxproj", "{8750C1BF-70CB-4BA0-8ECD-B964A9F6F563}"
 EndProject
