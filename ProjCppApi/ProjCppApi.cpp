@@ -46,7 +46,7 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strProj)
 	return true;
 }
 
-bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strSourceCrs, std::string strTargetCrs, std::string strAuthority, std::string strAreaCode)
+bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strSourceCrs, std::string strTargetCrs, std::string strAuthorityArea)
 {
 	if (!strSourceCrs.empty())
 	{
@@ -72,10 +72,24 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strSourceCrs, st
 	
 	const char* path = proj_context_get_database_path(m_ctxt);
 
-	if (!strAuthority.empty() && !strAreaCode.empty())
+	if (!strAuthorityArea.empty())
 	{
+		std::vector<std::string> tokens;
+		std::istringstream ss { strAuthorityArea };
+		std::string token;
+
+		while (std::getline(ss, token, ':'))
+			if (!token.empty())
+				tokens.push_back(token);
+		
+		if (tokens.size() != 2)
+			return false;
+
+		const std::string& areaAuth = tokens[0];
+		const std::string& areaCode = tokens[1];
+
 		DatabaseContextPtr dbContext = DatabaseContext::create(path).as_nullable();
-		ExtentPtr bboxFilter = AuthorityFactory::create(NN_NO_CHECK(dbContext), strAuthority)->createExtent(strAreaCode).as_nullable();
+		ExtentPtr bboxFilter = AuthorityFactory::create(NN_NO_CHECK(dbContext), areaAuth)->createExtent(areaCode).as_nullable();
 		
 		if (bboxFilter)
 		{

@@ -22,11 +22,21 @@ namespace ProjCppApiTest
 
 			wrapper.DestroyProj();
 		}
-		TEST_METHOD(InitializeProj)
+		TEST_METHOD(InitializeProj_EPSG7789_EPSG4936_EPSG1352)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
-			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG", "1352");
+			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG:1352");
+
+			Assert::IsTrue(res);
+
+			wrapper.DestroyProj();
+		}
+		TEST_METHOD(InitializeProj_EPSG7789_EPSG4936)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936");
 
 			Assert::IsTrue(res);
 
@@ -44,7 +54,7 @@ namespace ProjCppApiTest
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
-			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG", "1352");
+			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG:1352");
 			Assert::IsTrue(res);
 
 			// TRYS 2987993.64255 655946.42161 5578690.43270 2020.00
@@ -65,7 +75,7 @@ namespace ProjCppApiTest
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
-			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG", "1352");
+			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG:1352");
 			Assert::IsTrue(res);
 
 			//#ESBC
@@ -83,7 +93,7 @@ namespace ProjCppApiTest
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
-			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG", "1352");
+			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG:1352");
 			Assert::IsTrue(res);
 
 			// TRYS 2987993.64255 655946.42161 5578690.43270 2020.00
@@ -107,7 +117,7 @@ namespace ProjCppApiTest
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
-			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG", "1080");
+			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG:1080");
 			Assert::IsTrue(res);
 
 			//#ESBC
@@ -129,7 +139,7 @@ namespace ProjCppApiTest
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 			
-			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936", "", "");
+			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936", "");
 			Assert::IsTrue(res);
 
 			// TRYS 2987993.64255 655946.42161 5578690.43270 2020.00
@@ -150,7 +160,7 @@ namespace ProjCppApiTest
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
-			bool res = wrapper.InitializeProj("EPSG:4937", "EPSG:4273", "", "");
+			bool res = wrapper.InitializeProj("EPSG:4937", "EPSG:4273");
 			Assert::IsTrue(res);
 
 			double xInput = 10.0, yInput = 60.0, zInput = 100.0;
@@ -170,7 +180,7 @@ namespace ProjCppApiTest
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
-			bool res = wrapper.InitializeProj("EPSG:4937", "EPSG:4273", "", "");
+			bool res = wrapper.InitializeProj("EPSG:4937", "EPSG:4273", "");
 			Assert::IsTrue(res);
 
 			double xInput = 5.0, yInput = 59.0, zInput = 0.0;

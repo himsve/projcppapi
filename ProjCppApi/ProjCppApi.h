@@ -8,6 +8,8 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <sstream>
 
 #include <proj.h>
 #include "proj/io.hpp"
@@ -34,7 +36,7 @@ namespace ProjCppWrapper
 		const char* ProjGetArea();
 		bool DestroyProj();
 		bool InitializeProj(std::string strProj);
-		bool InitializeProj(std::string strSourceCrs, std::string strTargetCrs, std::string strAuthority = "", std::string strAreaCode = "");
+		bool InitializeProj(std::string strSourceCrs, std::string strTargetCrs, std::string strAuthorityArea = "");
 		bool Transform(double xInput, double yInput, double zInput, double epoch, double &xOutput, double &yOutput, double &zOutput);
 	};
 }

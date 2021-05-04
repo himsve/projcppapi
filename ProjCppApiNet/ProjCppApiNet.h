@@ -42,16 +42,15 @@ namespace ProjCppApiNet
 						
 			return p->InitializeProj(cProj);	
 		};
-		bool InitializeProj(System::String ^ strSourceCrs, System::String ^ strTargetCrs, [System::Runtime::InteropServices::Optional] System::String ^ strAuthority, [System::Runtime::InteropServices::Optional] System::String ^ strAreaCode)
+		bool InitializeProj(System::String ^ strSourceCrs, System::String ^ strTargetCrs, [System::Runtime::InteropServices::Optional] System::String ^ strAuthority, [System::Runtime::InteropServices::Optional] System::String ^ strAuthorityAreaCode)
 		{
 			msclr::interop::marshal_context context;
 
 			const char* sSourceCrs = context.marshal_as<const char*>(strSourceCrs);
 			const char* sTargetCrs = context.marshal_as<const char*>(strTargetCrs);
-			const char* sAuthority = context.marshal_as<const char*>(strAuthority);
-			const char* sAreaCode = context.marshal_as<const char*>(strAreaCode);
+			const char* sAuthorityAreaCode = context.marshal_as<const char*>(strAuthorityAreaCode);
 
-			return p->InitializeProj(sSourceCrs, sTargetCrs, sAuthority, sAreaCode);
+			return p->InitializeProj(sSourceCrs, sTargetCrs, sAuthorityAreaCode);
 		};
 		bool Transform(double xInput, double yInput, double zInput, double epoch, double % xOutput, double % yOutput, double % zOutput)
 		{
