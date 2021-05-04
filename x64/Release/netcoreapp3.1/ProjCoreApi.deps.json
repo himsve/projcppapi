@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "ProjCoreApi/1.1.0": {
+        "dependencies": {
+          "ProjCppApiCore": "1.0.0"
+        },
+        "runtime": {
+          "ProjCoreApi.dll": {}
+        }
+      },
+      "ProjCppApiCore/1.0.0": {
+        "dependencies": {
+          "ProjCppApi": "1.0.0"
+        },
+        "runtime": {
+          "ProjCppApiCore.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ProjCoreApi/1.1.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ProjCppApiCore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

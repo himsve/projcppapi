@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "ProjCoreApi": {
+      "commandName": "Project",
+      "workingDirectory": "..\\x64\\Debug\\",
+      "nativeDebugging": true
+    }
+  }
+}
