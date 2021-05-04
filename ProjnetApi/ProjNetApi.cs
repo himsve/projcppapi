@@ -17,7 +17,7 @@ namespace ProjNetApi
             {
                 o = new ProjCppApiNet.ProjCppApiNet();
 
-                var res = o.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG", "1352");
+                bool res = o.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG", "1352");
 
                 if (!res)
                     Console.WriteLine("Transformation failed");
