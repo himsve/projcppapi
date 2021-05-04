@@ -232,3 +232,4 @@ ProjCoreApi/bin/
 ProjCppApiCore/x64/Release/
 ProjnetApi/obj/
 ProjCppApiTest/x64/Release/ProjCppApiTest.vcxproj.CopyComplete
+ProjCppApiTest/x64/Release/ProjCppApiTest.tlog/link.delete.1.tlog
