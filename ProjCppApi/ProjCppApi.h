@@ -33,7 +33,7 @@ namespace ProjCppWrapper
 	public:
 		ProjCppWrapper();
 
-		const char* ProjGetArea();
+		const char* ProjGetArea(std::string strSourceCrs, std::string strTargetCrs);
 		bool DestroyProj();
 		bool InitializeProj(std::string strProj);
 		bool InitializeProj(std::string strSourceCrs, std::string strTargetCrs, std::string strAuthorityArea = "");

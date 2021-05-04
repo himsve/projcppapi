@@ -30,9 +30,14 @@ namespace ProjCppApiCore
 		{
 			return p->DestroyProj();
 		};	
-		System::String ^ ProjGetArea()
+		System::String ^ ProjGetArea(System::String^ strSourceCrs, System::String^ strTargetCrs)
 		{
-			return gcnew String(p->ProjGetArea());
+			msclr::interop::marshal_context context;
+
+			const char* cSourceCrs = context.marshal_as<const char*>(strSourceCrs);
+			const char* cTargetCrs = context.marshal_as<const char*>(strTargetCrs);
+
+			return gcnew String(p->ProjGetArea(cSourceCrs, cTargetCrs));
 		};
 		bool InitializeProj(System::String ^ strProj)
 		{

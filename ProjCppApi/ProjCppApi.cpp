@@ -14,11 +14,31 @@ ProjCppWrapper::ProjCppWrapper::ProjCppWrapper()
 	m_ctxt = proj_context_create();
 }
 
-const char* ProjCppWrapper::ProjCppWrapper::ProjGetArea()
+const char* ProjCppWrapper::ProjCppWrapper::ProjGetArea(std::string strSourceCrs, std::string strTargetCrs)
 {
-	m_src = proj_create_from_database(m_ctxt, "EPSG", "7789", PJ_CATEGORY_CRS, false, nullptr);
-	m_trg = proj_create_from_database(m_ctxt, "EPSG", "4936", PJ_CATEGORY_CRS, false, nullptr);
+	//m_src = proj_create_from_database(/*m_ctxt*/ nullptr, "EPSG", "7789", PJ_CATEGORY_CRS, false, nullptr);
+	//m_trg = proj_create_from_database(/*m_ctxt*/ nullptr, "EPSG", "4936", PJ_CATEGORY_CRS, false, nullptr);
 	
+	if (!strSourceCrs.empty())
+	{
+		m_src = proj_create(nullptr, strSourceCrs.c_str());
+
+		if (m_src == nullptr)
+			return nullptr;
+	}
+	else
+		return nullptr;
+
+	if (!strTargetCrs.empty())
+	{
+		m_trg = proj_create(nullptr, strTargetCrs.c_str());
+
+		if (m_trg == nullptr)
+			return nullptr;
+	}
+	else
+		return nullptr;
+
 	m_transformation = proj_create_crs_to_crs_from_pj(nullptr, m_src, m_trg, nullptr, nullptr);
 
 	const char *name = nullptr;

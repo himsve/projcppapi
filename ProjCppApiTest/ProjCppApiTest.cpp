@@ -15,7 +15,7 @@ namespace ProjCppApiTest
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
-			const char* res = wrapper.ProjGetArea();
+			const char* res = wrapper.ProjGetArea("EPSG:7789", "EPSG:4936");
 
 			Assert::AreEqual(res, "Norway - onshore.");
 			Assert::IsNotNull(res);
