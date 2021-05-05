@@ -16,9 +16,6 @@ ProjCppWrapper::ProjCppWrapper::ProjCppWrapper()
 
 const char* ProjCppWrapper::ProjCppWrapper::ProjGetArea(std::string strSourceCrs, std::string strTargetCrs)
 {
-	//m_src = proj_create_from_database(/*m_ctxt*/ nullptr, "EPSG", "7789", PJ_CATEGORY_CRS, false, nullptr);
-	//m_trg = proj_create_from_database(/*m_ctxt*/ nullptr, "EPSG", "4936", PJ_CATEGORY_CRS, false, nullptr);
-	
 	if (!strSourceCrs.empty())
 	{
 		m_src = proj_create(nullptr, strSourceCrs.c_str());
@@ -68,6 +65,10 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strProj)
 
 bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strSourceCrs, std::string strTargetCrs, std::string strAuthorityArea)
 {
+	char* libvar;
+	
+	libvar = std::getenv("PROJ_LIB");
+	
 	if (!strSourceCrs.empty())
 	{
 		m_src = proj_create(nullptr, strSourceCrs.c_str());
@@ -90,7 +91,7 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strSourceCrs, st
 
 	m_transformation = proj_create_crs_to_crs_from_pj(nullptr, m_src, m_trg, nullptr, nullptr /* options.data()*/);
 	
-	const char* path = proj_context_get_database_path(m_ctxt);
+	const char* resourcePath = proj_context_get_database_path(m_ctxt);
 
 	if (!strAuthorityArea.empty())
 	{
@@ -108,7 +109,7 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strSourceCrs, st
 		const std::string& areaAuth = tokens[0];
 		const std::string& areaCode = tokens[1];
 
-		DatabaseContextPtr dbContext = DatabaseContext::create(path).as_nullable();
+		DatabaseContextPtr dbContext = DatabaseContext::create(resourcePath).as_nullable();
 		ExtentPtr bboxFilter = AuthorityFactory::create(NN_NO_CHECK(dbContext), areaAuth)->createExtent(areaCode).as_nullable();
 		
 		if (bboxFilter)
@@ -189,8 +190,10 @@ bool ProjCppWrapper::ProjCppWrapper::Transform(double xInput, double yInput, dou
 	return true;
 }
 
+// Test code:
 //int main()
 //{
+	//proj_context_get_database_path()
 //	//char* libvar;
 //
 //	//libvar = std::getenv("PROJ_LIB");

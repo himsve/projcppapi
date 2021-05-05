@@ -94,7 +94,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\ProjCppApi;$(USERPROFILE)\Miniconda3\Library\include;C:\Users\Administratorsource\repos\PROJ\include\proj;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\ProjCppApi;$(USERPROFILE)\Miniconda3\Library\include;C:\Users\Administratorsource\repos\PROJ\include\proj</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
