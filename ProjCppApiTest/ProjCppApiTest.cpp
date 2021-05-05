@@ -11,7 +11,7 @@ namespace ProjCppApiTest
 	TEST_CLASS(ProjCppApiTest)
 	{
 	public:		
-		TEST_METHOD(ProjGetArea)
+		TEST_METHOD(ProjGetArea_EPSG7789_EPSG4936)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
@@ -63,12 +63,12 @@ namespace ProjCppApiTest
 			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
 
 			res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
-		
+
 			Assert::IsTrue(res);
 			Assert::AreEqual(xOutput, 2987994.11660, 1E-04);
 			Assert::AreEqual(yOutput, 655946.05964, 1E-04);
 			Assert::AreEqual(zOutput, 5578690.00490, 1E-04);
-			
+
 			wrapper.DestroyProj();
 		}
 		TEST_METHOD(Transform_EPSG7789_EPSG4936_EPSG1352_OUTSIDE)
@@ -198,7 +198,7 @@ namespace ProjCppApiTest
 			}
 			wrapper.DestroyProj();
 		}
-		TEST_METHOD(Transform_ProjString)
+		TEST_METHOD(Transform_ProjString_LatLon_UTM32)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
