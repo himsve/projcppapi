@@ -1,5 +1,5 @@
-#ifndef PROJCPPAPICLR_H
-#define PROJCPPAPICLR_H
+#ifndef PROJCPPAPICORE_H
+#define PROJCPPAPICORE_H
 
 #pragma once
 #include "pch.h"
