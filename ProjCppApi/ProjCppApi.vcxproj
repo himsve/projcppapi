@@ -123,6 +123,8 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>%(AdditionalDependencies);C:\Users\Administrator\source\repos\PROJ\build\lib\Debug\proj_d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Link>
     <Lib>
       <AdditionalDependencies>C:\Users\himsve\Miniconda3\Library\lib\proj.lib;C:\Users\himsve\Miniconda3\Library\lib\sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -130,7 +132,8 @@
       </AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference>
-      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -164,7 +167,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);C:\Users\Administrator\source\repos\PROJ\include\proj;$(USERPROFILE)\Miniconda3\Library\include;$(USERPROFILE)\Miniconda3\Library\include;$(USERPROFILE)\Miniconda2\Library\include;$(USERPROFILE)\Anaconda2\Library\include;$(USERPROFILE)\Anaconda3\Library\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);C:\Users\Administrator\source\repos\PROJ\include\proj;$(USERPROFILE)\Miniconda3\Library\include;$(USERPROFILE)\Miniconda3\Library\include</AdditionalIncludeDirectories>
       <SupportJustMyCode>false</SupportJustMyCode>
     </ClCompile>
     <Link>

@@ -12,6 +12,12 @@ using namespace NS_PROJ::metadata;
 ProjCppWrapper::ProjCppWrapper::ProjCppWrapper()
 {
 	m_ctxt = proj_context_create();
+
+	auto path = proj_context_get_database_path(m_ctxt);
+	
+	char* libvar;
+	libvar = std::getenv("PROJ_LIB");
+	libvar = std::getenv("USERPROFILE");
 }
 
 const char* ProjCppWrapper::ProjCppWrapper::ProjGetArea(std::string strSourceCrs, std::string strTargetCrs)
@@ -65,10 +71,6 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strProj)
 
 bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strSourceCrs, std::string strTargetCrs, std::string strAuthorityArea)
 {
-	char* libvar;
-	
-	libvar = std::getenv("PROJ_LIB");
-	
 	if (!strSourceCrs.empty())
 	{
 		m_src = proj_create(nullptr, strSourceCrs.c_str());
