@@ -13,6 +13,7 @@ ProjCppWrapper::ProjCppWrapper::ProjCppWrapper()
 {
 	m_ctxt = proj_context_create();
 
+	//Test code:
 	auto path = proj_context_get_database_path(m_ctxt);
 	
 	char* libvar;
