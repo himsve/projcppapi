@@ -39,7 +39,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProjCppApiCore\ProjCppApiCore.vcxproj" />
+    <ProjectReference Include="..\ProjCppApiCore\ProjCppApiCore.vcxproj">
+      <Private>true</Private>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>
