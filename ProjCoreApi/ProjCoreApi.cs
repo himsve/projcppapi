@@ -19,7 +19,15 @@ namespace ProjCoreApi
             try
             {
                 o = new ProjCppApiCore.ProjCppApiCore();
-                bool res = o.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG:1352");
+                
+                var path = "C:/Users/himsve/Miniconda3/Library/share/proj/proj.db";
+             
+                bool res = o.SetProjDbPath(path);
+                
+                if (!res)
+                    Console.WriteLine("Could not set the database path");
+
+                res = o.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG:1352");
                 
                 if (!res)
                     Console.WriteLine("Transformation failed");
