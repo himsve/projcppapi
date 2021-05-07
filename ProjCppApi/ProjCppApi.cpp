@@ -11,14 +11,7 @@ using namespace NS_PROJ::metadata;
 
 ProjCppWrapper::ProjCppWrapper::ProjCppWrapper()
 {
-	m_ctxt = proj_context_create();
-
-	//Test code:
-	auto path = proj_context_get_database_path(m_ctxt);
-	
-	char* libvar;
-	libvar = std::getenv("PROJ_LIB");
-	libvar = std::getenv("USERPROFILE");
+	m_ctxt = proj_context_create();	
 }
 
 const char* ProjCppWrapper::ProjCppWrapper::ProjGetArea(std::string strSourceCrs, std::string strTargetCrs)
@@ -138,6 +131,36 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strSourceCrs, st
 	return true;
 }
 
+std::string ProjCppWrapper::ProjCppWrapper::GetProjDbPath()
+{
+	if (m_ctxt != nullptr)
+	{
+		auto path = proj_context_get_database_path(m_ctxt);
+	
+		if (path != nullptr)
+		{
+			std::string s(path);
+			return s;
+		}	
+	}
+	return std::string();
+}
+
+bool ProjCppWrapper::ProjCppWrapper::SetProjDbPath(std::string strProjPathCrs)
+{
+	m_projPath = strProjPathCrs.c_str();
+   
+	if (m_projPath != nullptr && m_ctxt != nullptr)
+	{
+		int res = proj_context_set_database_path(m_ctxt, m_projPath, nullptr, nullptr);
+		if (res == 0)
+			return false;
+
+		return true;
+	}
+	return false;
+}
+
 bool ProjCppWrapper::ProjCppWrapper::DestroyProj()
 {
 	if (m_ctxt != nullptr)
@@ -158,6 +181,9 @@ bool ProjCppWrapper::ProjCppWrapper::DestroyProj()
 	if (m_transformation != nullptr)
 		if (proj_destroy(m_transformation) != nullptr)
 			return false;
+
+	if (m_projPath != nullptr)
+		m_projPath = nullptr;	
 	 
 	return true;
 }

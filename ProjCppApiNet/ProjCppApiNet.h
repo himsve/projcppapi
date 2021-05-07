@@ -29,7 +29,19 @@ namespace ProjCppApiNet
 		bool DestroyProj()
 		{
 			return p->DestroyProj();
-		};	
+		}; 
+		System::String^ GetProjDbPath()
+		{
+			return gcnew String(p->GetProjDbPath().c_str());
+		}
+		bool SetProjDbPath(System::String^ strProjDbPath)
+		{
+			msclr::interop::marshal_context context;
+
+			const char* cProjDbPath = context.marshal_as<const char*>(strProjDbPath);
+
+			return p->SetProjDbPath(cProjDbPath);
+		}
 		System::String^ ProjGetArea(System::String^ strSourceCrs, System::String^ strTargetCrs)
 		{
 			msclr::interop::marshal_context context;

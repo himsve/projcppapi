@@ -42,14 +42,6 @@ namespace ProjCppApiTest
 
 			wrapper.DestroyProj();
 		}
-		TEST_METHOD(DestroyProj)
-		{
-			ProjCppWrapper::ProjCppWrapper wrapper;
-
-			bool res = wrapper.DestroyProj();
-
-			Assert::IsTrue(res);	
-		}
 		TEST_METHOD(Transform_EPSG7789_EPSG4936_EPSG1352)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
@@ -215,6 +207,37 @@ namespace ProjCppApiTest
 			Assert::IsTrue(yOutput != HUGE_VAL);
 			Assert::IsTrue(zOutput != HUGE_VAL);
 
+			wrapper.DestroyProj();
+		}
+		
+		TEST_METHOD(DestroyProj)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			bool res = wrapper.DestroyProj();
+
+			Assert::IsTrue(res);
+		}
+		TEST_METHOD(GetDatabasePath)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+			
+			std::string res = wrapper.GetProjDbPath();
+
+			Assert::IsFalse(res == "");
+		}
+
+		TEST_METHOD(SetDatabasePath)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			bool res = wrapper.SetProjDbPath("c:/temp/proj.db");
+
+			if (!res)
+			{
+				wrapper.DestroyProj();
+				Assert::IsTrue(res);
+			}
 			wrapper.DestroyProj();
 		}
 	};

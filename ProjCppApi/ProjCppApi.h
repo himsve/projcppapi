@@ -23,6 +23,8 @@ namespace ProjCppWrapper
 	class DLL_API ProjCppWrapper
 	{
 	private:
+		const char* m_projPath = nullptr;
+
 		PJ_CONTEXT *m_ctxt = nullptr;
 
 		PJ *m_src = nullptr;
@@ -37,6 +39,8 @@ namespace ProjCppWrapper
 		bool DestroyProj();
 		bool InitializeProj(std::string strProj);
 		bool InitializeProj(std::string strSourceCrs, std::string strTargetCrs, std::string strAuthorityArea = "");
+		std::string GetProjDbPath();
+		bool SetProjDbPath(std::string strProjPathCrs);
 		bool Transform(double xInput, double yInput, double zInput, double epoch, double &xOutput, double &yOutput, double &zOutput);
 	};
 }
