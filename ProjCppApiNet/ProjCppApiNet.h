@@ -32,7 +32,10 @@ namespace ProjCppApiNet
 		}; 
 		System::String^ GetProjDbPath()
 		{
-			return gcnew String(p->GetProjDbPath().c_str());
+			msclr::interop::marshal_context context;
+			const char* cProjDbPath = p->GetProjDbPath();
+
+			return gcnew String(cProjDbPath);
 		}
 		bool SetProjDbPath(System::String^ strProjDbPath)
 		{

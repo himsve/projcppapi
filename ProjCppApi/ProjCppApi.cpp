@@ -131,19 +131,16 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strSourceCrs, st
 	return true;
 }
 
-std::string ProjCppWrapper::ProjCppWrapper::GetProjDbPath()
+const char* ProjCppWrapper::ProjCppWrapper::GetProjDbPath()
 {
 	if (m_ctxt != nullptr)
 	{
 		auto path = proj_context_get_database_path(m_ctxt);
 	
 		if (path != nullptr)
-		{
-			std::string s(path);
-			return s;
-		}	
+	 		return path;		
 	}
-	return std::string();
+	return nullptr;
 }
 
 bool ProjCppWrapper::ProjCppWrapper::SetProjDbPath(std::string strProjPathCrs)

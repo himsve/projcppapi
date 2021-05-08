@@ -20,13 +20,19 @@ namespace ProjCoreApi
             {
                 o = new ProjCppApiCore.ProjCppApiCore();
                 
-                var path = "C:/Users/himsve/Miniconda3/Library/share/proj/proj.db";
+                var getPath = o.GetProjDbPath();
+
+                Console.WriteLine($"GetPath: {getPath}");
+
+                var setPath = "c:/Users/himsve/Miniconda3/Library/share/proj/proj.db";
              
-                bool res = o.SetProjDbPath(path);
+                bool res = o.SetProjDbPath(setPath);
                 
                 if (!res)
                     Console.WriteLine("Could not set the database path");
-
+                else
+                    Console.WriteLine($"SetPath: {setPath}");
+                
                 res = o.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG:1352");
                 
                 if (!res)
@@ -41,7 +47,6 @@ namespace ProjCoreApi
                 Console.WriteLine($"{xInput}, {yInput}, {zInput}, {epoch}, {xOutput}, {yOutput}, {zOutput}");
                 
                 Console.ReadKey();
-
             }
             catch (Exception ex)
             {
