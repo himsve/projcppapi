@@ -50,7 +50,7 @@ namespace ProjCoreApi
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message +  "\n" + ex.StackTrace);                
             }
             finally
             {
