@@ -63,11 +63,11 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strProj)
 	return true;
 }
 
-bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strSourceCrs, std::string strTargetCrs, std::string strAuthorityArea)
+bool ProjCppWrapper::ProjCppWrapper::InitializeProj(const char* strSourceCrs, const char* strTargetCrs, const char* strAuthorityArea)
 {
-	if (!strSourceCrs.empty())
+	if (strSourceCrs != nullptr)	
 	{
-		m_src = proj_create(nullptr, strSourceCrs.c_str());
+		m_src = proj_create(nullptr, strSourceCrs);
 		
 		if (m_src == nullptr)
 			return false;
@@ -75,9 +75,9 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strSourceCrs, st
 	else
 		return false;
 
-	if (!strTargetCrs.empty())
+	if (strTargetCrs != nullptr)
 	{
-		m_trg = proj_create(nullptr, strTargetCrs.c_str());
+		m_trg = proj_create(nullptr, strTargetCrs);
 
 		if (m_trg == nullptr)
 			return false;
@@ -89,7 +89,7 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(std::string strSourceCrs, st
 	
 	const char* resourcePath = proj_context_get_database_path(m_ctxt);
 
-	if (!strAuthorityArea.empty())
+	if (strAuthorityArea != nullptr)
 	{
 		std::vector<std::string> tokens;
 		std::istringstream ss { strAuthorityArea };

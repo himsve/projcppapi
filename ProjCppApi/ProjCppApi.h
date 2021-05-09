@@ -38,7 +38,7 @@ namespace ProjCppWrapper
 		const char* ProjGetArea(std::string strSourceCrs, std::string strTargetCrs);
 		bool DestroyProj();
 		bool InitializeProj(std::string strProj);
-		bool InitializeProj(std::string strSourceCrs, std::string strTargetCrs, std::string strAuthorityArea = "");
+		bool InitializeProj(const char* strSourceCrs, const char* strTargetCrs, const char* strAuthorityArea = nullptr);
 		const char* GetProjDbPath();
 		bool SetProjDbPath(std::string strProjPathCrs);
 		bool Transform(double xInput, double yInput, double zInput, double epoch, double &xOutput, double &yOutput, double &zOutput);

@@ -65,11 +65,11 @@ namespace ProjCppApiCore
 		bool InitializeProj(System::String ^ strSourceCrs, System::String ^ strTargetCrs, System::String ^ strAuthorityAreaCode)
 		{
 			msclr::interop::marshal_context context;
-
+			
 			const char* sSourceCrs = context.marshal_as<const char*>(strSourceCrs);
 			const char* sTargetCrs = context.marshal_as<const char*>(strTargetCrs);
 			const char* sAuthorityAreaCode = context.marshal_as<const char*>(strAuthorityAreaCode);
-
+	
 			return p->InitializeProj(sSourceCrs, sTargetCrs, sAuthorityAreaCode);
 		};
 		bool Transform(double xInput, double yInput, double zInput, double epoch, double % xOutput, double % yOutput, double % zOutput)

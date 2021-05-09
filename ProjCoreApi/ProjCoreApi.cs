@@ -24,26 +24,28 @@ namespace ProjCoreApi
 
                 Console.WriteLine($"GetPath: {getPath}");
 
-                var setPath = "c:/Users/himsve/Miniconda3/Library/share/proj/proj.db";
-             
-                bool res = o.SetProjDbPath(setPath);
+                bool res = o.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG:1352");
                 
                 if (!res)
-                    Console.WriteLine("Could not set the database path");
-                else
-                    Console.WriteLine($"SetPath: {setPath}");
-                
-                res = o.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG:1352");
-                
-                if (!res)
-                    Console.WriteLine("Transformation failed");
-                
+                {
+                    Console.WriteLine("Initialization failed");
+                    Console.ReadKey();
+                    return;
+                }
+
                 double xInput = 2987993.64255, yInput = 655946.42161, zInput = 5578690.43270;
                 double epoch = 2020.0;
                 double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
                 
-                o.Transform(xInput, yInput, zInput, epoch, ref xOutput, ref yOutput, ref zOutput);
-                
+                res = o.Transform(xInput, yInput, zInput, epoch, ref xOutput, ref yOutput, ref zOutput);
+
+                if (!res)
+                {
+                    Console.WriteLine("Transformation failed");
+                    Console.ReadKey();
+                    return;
+                }
+
                 Console.WriteLine($"{xInput}, {yInput}, {zInput}, {epoch}, {xOutput}, {yOutput}, {zOutput}");
                 
                 Console.ReadKey();
