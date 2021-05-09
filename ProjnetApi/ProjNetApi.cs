@@ -11,13 +11,13 @@ namespace ProjNetApi
     {
         public static void Main()
         {
-            ProjCppApiNet.ProjCppApiNet o = null;
+            ProjCppApiCore.ProjCppApiCore o = null;
 
             try
             {
-                o = new ProjCppApiNet.ProjCppApiNet();
+                o = new ProjCppApiCore.ProjCppApiCore();
 
-                bool res = o.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG", "1352");
+                bool res = o.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG:1352");
 
                 if (!res)
                     Console.WriteLine("Transformation failed");
