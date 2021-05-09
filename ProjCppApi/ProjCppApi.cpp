@@ -11,7 +11,8 @@ using namespace NS_PROJ::metadata;
 
 ProjCppWrapper::ProjCppWrapper::ProjCppWrapper()
 {
-	m_ctxt = proj_context_create();	
+	m_ctxt = proj_context_create();
+	proj_log_level(m_ctxt, PJ_LOG_LEVEL::PJ_LOG_NONE);
 }
 
 const char* ProjCppWrapper::ProjCppWrapper::ProjGetArea(std::string strSourceCrs, std::string strTargetCrs)

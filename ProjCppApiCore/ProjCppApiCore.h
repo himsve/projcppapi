@@ -1,6 +1,7 @@
 #pragma once
+
 #include "pch.h"
-#include <ProjCppApi.h>
+#include "..\ProjCppApi\ProjCppApi.h"
 #include <proj.h>
 #include <proj/io.hpp>
 #include <proj/metadata.hpp>

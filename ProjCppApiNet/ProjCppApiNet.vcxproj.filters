@@ -24,6 +24,9 @@
     <ClInclude Include="..\ProjCppApiCore\ProjCppApiCore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\ProjCppApi\ProjCppApi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -33,6 +36,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\ProjCppApiCore\ProjCppApiCore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ProjCppApi\ProjCppApi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -19,7 +19,7 @@
 using namespace std;
 
 namespace ProjCppWrapper
-{
+{	
 	class DLL_API ProjCppWrapper
 	{
 	private:
