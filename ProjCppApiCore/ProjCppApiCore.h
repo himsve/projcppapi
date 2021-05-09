@@ -1,6 +1,3 @@
-#ifndef PROJCPPAPICORE_H
-#define PROJCPPAPICORE_H
-
 #pragma once
 #include "pch.h"
 #include <ProjCppApi.h>
@@ -89,4 +86,3 @@ namespace ProjCppApiCore
 		};
 	};
 };
-#endif
