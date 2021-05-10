@@ -26,6 +26,12 @@ namespace AspNetCoreWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+           // services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
+            services.AddMvc();
+
+            // Register the Swagger services
+            services.AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +52,15 @@ namespace AspNetCoreWebApi
             {
                 endpoints.MapControllers();
             });
+
+            app.UseStaticFiles();
+
+            // Register the Swagger generator and the Swagger UI middlewares
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
+
+            // Fails here:
+            //  app.UseMvc();
         }
     }
 }
