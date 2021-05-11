@@ -13,6 +13,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using AspCoreWebApi.Models;
 
 namespace AspCoreWebApi
 {
@@ -28,6 +30,8 @@ namespace AspCoreWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase(nameof(AspCoreWebApi.Models.TodoContext.TodoItems)));
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>

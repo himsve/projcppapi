@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspCoreWebApi.Models;
 
 namespace AspCoreWebApi.Controllers
 {
@@ -14,18 +15,19 @@ namespace AspCoreWebApi.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private List<WeatherForecast> _weathersList; 
+        private List<WeatherForecast> _weathersList;
+        private readonly TodoContext _context;
+        private readonly ILogger<WeatherForecastController> _logger;
 
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(TodoContext context, ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
+            _context = context;
         }
 
         /// <summary>
@@ -38,12 +40,29 @@ namespace AspCoreWebApi.Controllers
             return weathers;
         }
 
+        /*
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public WeatherForecast Get(int id)
         {
             return weathers.FirstOrDefault(x => x.Id == id);
+        }
+        */
+
+        // GET: api/TodoItems/5
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<WeatherForecast>> GetTodoItem(long id)
+        {
+            var todoItem = await _context.TodoItems.FindAsync(id);
+
+            if (todoItem == null)
+            {
+                return NotFound();
+            }
+            return todoItem;
         }
 
         /// <summary>
