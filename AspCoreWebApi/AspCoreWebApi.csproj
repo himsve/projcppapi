@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\Administrator\source\repos\projcppapi\AspCoreWebApp\AspCoreWebApi.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\Administrator\source\repos\projcppapi\AspCoreWebApi\AspCoreWebApi.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

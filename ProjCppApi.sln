@@ -30,7 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNet", "AspNet", "{A3F803
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspCoreWebApi", "AspCoreWebApi\AspCoreWebApi.csproj", "{282E773B-696F-4E26-8879-EB872A8A6D68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{FE91E778-EC9F-4069-A0EA-93280D1F6879}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspCoreWebApp", "AspCoreWebApp\AspCoreWebApp.csproj", "{FE91E778-EC9F-4069-A0EA-93280D1F6879}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
