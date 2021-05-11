@@ -14,6 +14,8 @@ namespace AspCoreWebApi.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private List<WeatherForecast> _weathersList; 
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -64,22 +66,31 @@ namespace AspCoreWebApi.Controllers
             weathers.RemoveAll(m => m.Id == id);
         }
 
-        private static List<WeatherForecast> weathers
+        private List<WeatherForecast> weathers
         {
             get
             {
-                var ind = 0;
-                var rng = new Random();
-
-                var w = Enumerable.Range(1, 10).Select(index => new WeatherForecast
+                if (_weathersList == null)
                 {
-                    Id = ind++,
-                    Date = DateTime.Now.AddDays(index),
-                    TemperatureC = rng.Next(-20, 55),
-                    Summary = Summaries[rng.Next(Summaries.Length)]
-                }).ToList();
+                    _weathersList = new List<WeatherForecast>();
 
-                return w;
+                    var ind = 0;
+                    var rng = new Random();
+
+                    _weathersList = Enumerable.Range(1, 10).Select(index => new WeatherForecast
+                    {
+                        Id = ind++,
+                        Date = DateTime.Now.AddDays(index),
+                        TemperatureC = rng.Next(-20, 55),
+                        Summary = Summaries[rng.Next(Summaries.Length)]
+                    }).ToList();
+                }
+
+                return _weathersList;
+            }
+            set
+            {
+                _weathersList = value;
             }
         }
     };    

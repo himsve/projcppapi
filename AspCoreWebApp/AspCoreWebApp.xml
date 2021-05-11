@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AspCoreWebApp</name>
+    </assembly>
+    <members>
+        <member name="M:AspCoreWebApi.Controllers.WeatherForecastController.Get">
+            <summary>
+            Get all the weather forecasts
+            </summary>
+            <returns>List of weather forecasts</returns>
+        </member>
+        <member name="M:AspCoreWebApi.Controllers.WeatherForecastController.Post(AspCoreWebApi.WeatherForecast)">
+            <summary>
+            Adds a forecast to the list
+            </summary>
+            <param name="value">Forecast to be added</param>
+        </member>
+        <member name="M:AspCoreWebApi.Controllers.WeatherForecastController.Delete(System.Int32)">
+            <summary>
+            Removes a forecast from the list
+            </summary>
+            <param name="id">Id of the forcast to be deleted</param>
+        </member>
+    </members>
+</doc>

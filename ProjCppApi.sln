@@ -28,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F5AF8E4B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNet", "AspNet", "{A3F80320-996C-42AA-915F-7F25C9920FEE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspCoreWebApi", "AspCoreWebApi\AspCoreWebApi.csproj", "{282E773B-696F-4E26-8879-EB872A8A6D68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspCoreWebApp", "AspCoreWebApp\AspCoreWebApp.csproj", "{282E773B-696F-4E26-8879-EB872A8A6D68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

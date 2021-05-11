@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>AspCoreWebApi</name>
+        <name>AspCoreWebApp</name>
     </assembly>
     <members>
         <member name="M:AspCoreWebApi.Controllers.WeatherForecastController.Get">
