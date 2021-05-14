@@ -13,11 +13,11 @@ namespace AspCoreWebApi.Controllers
 {
     [Authorize]
     [ApiController]
-    //[Route("[controller]")]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
+    //[Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private readonly TodoContext _context;
+        private readonly WeatherForecastContext _context;
         private readonly ILogger<WeatherForecastController> _logger;
 
         private static readonly string[] Summaries = new[]
@@ -25,7 +25,7 @@ namespace AspCoreWebApi.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        public WeatherForecastController(TodoContext context, ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(WeatherForecastContext context, ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
             _context = context;
@@ -36,88 +36,116 @@ namespace AspCoreWebApi.Controllers
         /// </summary>
         /// <returns>List of weather forecasts</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<WeatherForecast>>> GetWeatherForecastItems()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<WeatherForecastDTO>>> GetWeatherForecasts()
         {
-            return await _context.TodoItems.Select(x => x).ToListAsync();
+            return await _context.DbWeatherForeCasts.Select(x => WeatherForecastToDTO(x)).ToListAsync();
         }
 
+        /// <summary>
+        /// Get a weather forecast with id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Object of WeatherForecast</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<WeatherForecast>> GetTodoItem(long id)
+        public async Task<ActionResult<WeatherForecastDTO>> GetWeatherForecast(int id)
         {
-            var todoItem = await _context.TodoItems.FindAsync(id);
+            var weatherForecast = await _context.DbWeatherForeCasts.FindAsync(id);
 
-            if (todoItem == null)
+            if (weatherForecast == null)
             {
                 return NotFound();
             }
-            return todoItem;
+            return WeatherForecastToDTO(weatherForecast);
         }
 
         /// <summary>
         /// Add new weather forecast item  
         /// </summary>
-        /// <param name="todoItem">Forecast to be added</param>
+        /// <param name="weatherForecastDTO">Forecast to be added</param>
         /// <returns>Result</returns>
         [HttpPost]
-        public async Task<ActionResult<WeatherForecast>> PostWeatherForecastItem(WeatherForecast todoItem)
+        public async Task<ActionResult<WeatherForecastDTO>> PostWeatherForecast(WeatherForecastDTO weatherForecastDTO)
         {
-            _context.TodoItems.Add(todoItem);
+            var weatherForecast = new WeatherForecast
+            {
+                Summary = weatherForecastDTO.Summary,
+                Date = weatherForecastDTO.Date,
+                TemperatureC = weatherForecastDTO.TemperatureC
+            };
+
+            _context.DbWeatherForeCasts.Add(weatherForecast);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
+            return CreatedAtAction(nameof(GetWeatherForecast), new { id = weatherForecast.Id }, WeatherForecastToDTO(weatherForecast));
         }
 
+        /// <summary>
+        /// Get a weather forecast with id
+        /// </summary>
+        /// <param name="id">Id of the forecast to be updated</param>
+        /// <param name="weatherForecastDTO">Forecast to be updated</param>
+        /// <returns>Updated object</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTodoItem(long id, WeatherForecast todoItemDTO)
+        public async Task<IActionResult> UpdateWeatherForecast(int id, WeatherForecastDTO weatherForecastDTO)
         {
-            if (id != todoItemDTO.Id)
+            if (id != weatherForecastDTO.Id)
             {
                 return BadRequest();
             }
 
-            var todoItem = await _context.TodoItems.FindAsync(id);
-            if (todoItem == null)
+            var weatherForecast = await _context.DbWeatherForeCasts.FindAsync(id);
+            if (weatherForecast == null)
             {
                 return NotFound();
             }
 
-            todoItem.Summary = todoItemDTO.Summary;
-            todoItem.TemperatureC = todoItemDTO.TemperatureC;
-            todoItem.Date = todoItemDTO.Date;
+            weatherForecast.Summary = weatherForecastDTO.Summary;
+            weatherForecast.TemperatureC = weatherForecastDTO.TemperatureC;
+            weatherForecast.Date = weatherForecastDTO.Date;
 
             try
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException) when (!TodoItemExists(id))
+            catch (DbUpdateConcurrencyException) when (!WeatherForecastExists(id))
             {
                 return NotFound();
             }
             return NoContent();
         }
 
-
         /// <summary>
         /// Removes a forecast from the list
         /// </summary>
-        /// <param name="id">Id of the forcast to be deleted</param>
+        /// <param name="id">Id of the forecast to be deleted</param>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTodoItem(long id)
+        public async Task<IActionResult> DeleteWeatherForecast(int id)
         {
-            var todoItem = await _context.TodoItems.FindAsync(id);
-            if (todoItem == null)
+            var weatherForecast = await _context.DbWeatherForeCasts.FindAsync(id);
+            if (weatherForecast == null)
             {
                 return NotFound();
             }
 
-            _context.TodoItems.Remove(todoItem);
+            _context.DbWeatherForeCasts.Remove(weatherForecast);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TodoItemExists(long id) => _context.TodoItems.Any(e => e.Id == id);
-    };    
+        private bool WeatherForecastExists(int id) => _context.DbWeatherForeCasts.Any(e => e.Id == id);
+
+        private static WeatherForecastDTO WeatherForecastToDTO(WeatherForecast weatherForecast) =>
+            new WeatherForecastDTO
+            {
+                Id = weatherForecast.Id,
+                Date = weatherForecast.Date,
+                TemperatureC = weatherForecast.TemperatureC,
+                Summary = weatherForecast.Summary
+            };
+    };
 }

@@ -86,7 +86,7 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(const char* strSourceCrs, co
 	else
 		return false;
 
-	m_transformation = proj_create_crs_to_crs_from_pj(nullptr, m_src, m_trg, nullptr, nullptr /* options.data()*/);
+	m_transformation = proj_create_crs_to_crs_from_pj(nullptr, m_src, m_trg, nullptr, nullptr);
 	
 	const char* resourcePath = proj_context_get_database_path(m_ctxt);
 
@@ -124,7 +124,7 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(const char* strSourceCrs, co
 		}
 	}
 	
-	m_transformation = proj_create_crs_to_crs_from_pj(nullptr, m_src, m_trg, m_pj_area, nullptr /* options.data()*/);
+	m_transformation = proj_create_crs_to_crs_from_pj(nullptr, m_src, m_trg, m_pj_area, nullptr);
 		
 	if (m_transformation == nullptr)
 		return false;
@@ -217,7 +217,7 @@ bool ProjCppWrapper::ProjCppWrapper::Transform(double xInput, double yInput, dou
 	return true;
 }
 
-// Test code:
+// For testing:
 //int main()
 //{
 	//proj_context_get_database_path()

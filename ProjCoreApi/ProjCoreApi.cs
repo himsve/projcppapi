@@ -17,7 +17,7 @@ namespace ProjCoreApi
             ProjCppApiCore.ProjCppApiCore? o = null;
 
             try
-            {
+            {            
                 o = new ProjCppApiCore.ProjCppApiCore();
                 
                 var getPath = o.GetProjDbPath();

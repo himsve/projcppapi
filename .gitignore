@@ -235,3 +235,7 @@ ProjCppApiTest/x64/Release/ProjCppApiTest.vcxproj.CopyComplete
 ProjCppApiTest/x64/Release/ProjCppApiTest.tlog/link.delete.1.tlog
 AspCoreWebApi/obj/
 AspCoreWebApp/obj/
+ProjNetApi_/obj/x64/Release/ProjNetApi.pdb
+ProjNetApi_/obj/
+AspCoreWebApi/bin/
+AspCoreWebApp/bin/

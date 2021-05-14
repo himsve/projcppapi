@@ -3,6 +3,7 @@
     "ProjCoreApi": {
       "commandName": "Project",
       "workingDirectory": "..\\x64\\Debug\\",
+      "remoteDebugEnabled": false,
       "nativeDebugging": true
     }
   }

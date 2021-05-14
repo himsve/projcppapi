@@ -6,7 +6,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\Administrator\source\repos\projcppapi\AspCoreWebApi\AspCoreWebApi.xml</DocumentationFile>
+    <DocumentationFile>..\x64\Debug\AspCoreWebApi.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>..\x64\Release</OutputPath>
+    <DocumentationFile>..\x64\Release\AspCoreWebApi.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,6 +49,10 @@
     <OpenApiReference Include="data.json">
       <CodeGenerator>NSwagCSharp</CodeGenerator>
     </OpenApiReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjCppApiCore\ProjCppApiCore.vcxproj" />
   </ItemGroup>
 
 

@@ -30,13 +30,14 @@ namespace AspCoreWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase(nameof(AspCoreWebApi.Models.TodoContext.TodoItems)));
+            services.AddDbContext<WeatherForecastContext>(opt => opt.UseInMemoryDatabase(nameof(AspCoreWebApi.Models.WeatherForecastContext.DbWeatherForeCasts)));
+            services.AddDbContext<ProjInitContexts>(opt => opt.UseInMemoryDatabase(nameof(AspCoreWebApi.Models.ProjInitContexts.DbProjInit)));
 
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1-foo", new OpenApiInfo { Title = "Sveinung sin API", Version = "v1-beta" });
+                c.SwaggerDoc("v1-foo", new OpenApiInfo { Title = "Sveinung sitt API", Version = "v1-beta" });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
@@ -66,7 +67,7 @@ namespace AspCoreWebApi
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1-foo/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1-foo/swagger.json", "Mitt API V1");
             });
         }
     }
