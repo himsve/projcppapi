@@ -28,10 +28,22 @@ namespace AspCoreWebApi.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<ProjInitDTO>>> GetProjInit()
+        public async Task<ActionResult<ProjInitDTO>> GetProjInit()
+      //  public async Task<ActionResult<IEnumerable<ProjInitDTO>>> GetProjInit()
         {
-            return await _context.DbProjInit.Select(x => ProjInfoToDTO(x)).ToListAsync();
+            return ProjInfoToDTO(new ProjInit());
+            //return await _context.DbProjInit;
+          //  return await _context.DbProjInit.Select(x => ProjInfoToDTO(x)).ToListAsync();
         }
+
+        [HttpPut]
+        public async Task<AcceptedResult> UpdateProjInit()
+        {
+
+
+            return null;
+        }
+
 
         private static ProjInitDTO ProjInfoToDTO(ProjInit projInfo) =>
           new ProjInitDTO

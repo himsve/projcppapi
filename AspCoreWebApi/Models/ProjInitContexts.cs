@@ -12,23 +12,17 @@ namespace AspCoreWebApi.Models
              : base(options)
         {
         }
-
+        
         public DbSet<ProjInit> DbProjInit { get; set; }
     }
 
     public class ProjInitDTO
     {
-        public string EpsgAutoritySource { get; set; }
-        public string EpsgCodeSource { get; set; }
-        public string EpsgAutorityTarget { get; set; }
-        public string EpsgCodeTarget { get; set; }
-        public string EpsgAutorityArea { get; set; }
-        public string EpsgCodeArea { get; set; }
+        public string EpsgAutoritySource { get; set; } = "";
+        public string EpsgCodeSource { get; set; } = "";
+        public string EpsgAutorityTarget { get; set; } = "";
+        public string EpsgCodeTarget { get; set; } = "";
+        public string EpsgAutorityArea { get; set; } = "";
+        public string EpsgCodeArea { get; set; } = "";
     }
-
-    public class ProjTransformContexts
-    {
-
-    }
-
 }
