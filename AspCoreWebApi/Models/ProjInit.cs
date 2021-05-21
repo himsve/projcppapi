@@ -7,6 +7,7 @@ namespace AspCoreWebApi.Models
 {
     public class ProjInit
     {
+        public int Id { get; set; } = 1;
         public string EpsgAutoritySource { get; set; } = "";
         public string EpsgCodeSource { get; set; } = "";
         public string EpsgAutorityTarget { get; set; } = "";

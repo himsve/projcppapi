@@ -14,7 +14,6 @@ namespace AspCoreWebApi.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    //[Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private readonly WeatherForecastContext _context;

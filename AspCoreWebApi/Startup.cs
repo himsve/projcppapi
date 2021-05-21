@@ -30,8 +30,8 @@ namespace AspCoreWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<WeatherForecastContext>(opt => opt.UseInMemoryDatabase(nameof(AspCoreWebApi.Models.WeatherForecastContext.DbWeatherForeCasts)));
-            services.AddDbContext<ProjInitContexts>(opt => opt.UseInMemoryDatabase(nameof(AspCoreWebApi.Models.ProjInitContexts.DbProjInit)));
+            services.AddDbContext<WeatherForecastContext>(opt => opt.UseInMemoryDatabase(nameof(WeatherForecastContext.DbWeatherForeCasts)));
+            services.AddDbContext<ProjInitContexts>(opt => opt.UseInMemoryDatabase(nameof(ProjInitContexts.DbProjInit)));
 
             services.AddControllers();
 

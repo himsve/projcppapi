@@ -10,8 +10,7 @@ namespace AspCoreWebApi.Models
     {
         public ProjTransformContexts(DbContextOptions<ProjTransformContexts> options)
             : base(options)
-        {
-        
+        {       
         
         }
 

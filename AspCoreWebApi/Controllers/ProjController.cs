@@ -10,7 +10,7 @@ using AspCoreWebApi.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspCoreWebApi.Controllers
-{    
+{
     [Authorize]
     [ApiController]
     [Route("[controller]")]
@@ -25,29 +25,95 @@ namespace AspCoreWebApi.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Get proj transformation parameters
+        /// </summary>
+        /// <returns>Proj parameters</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ProjInitDTO>> GetProjInit()
-      //  public async Task<ActionResult<IEnumerable<ProjInitDTO>>> GetProjInit()
         {
-            return ProjInfoToDTO(new ProjInit());
-            //return await _context.DbProjInit;
-          //  return await _context.DbProjInit.Select(x => ProjInfoToDTO(x)).ToListAsync();
+            var projInit = await _context.DbProjInit.FirstOrDefaultAsync();
+
+            if (projInit == null)
+            {
+                return NotFound();
+            }
+            return ProjInfoToDTO(projInit);
         }
 
+        /// <summary>
+        /// Set proj transformation parameters
+        /// </summary> 
+        /// <param name="projInitDTO">ProjInit to be added</param>
+        /// <returns>Result</returns>
+        [HttpPost]
+        public async Task<ActionResult<ProjInitDTO>> PostProjInit(ProjInitDTO projInitDTO)
+        {
+            var projInit = await _context.DbProjInit.FirstOrDefaultAsync();
+
+            if (projInit == null)
+            {
+                projInit = new ProjInit
+                {
+                    EpsgAutorityArea = projInitDTO.EpsgAutorityArea,
+                    EpsgAutoritySource = projInitDTO.EpsgAutoritySource,
+                    EpsgAutorityTarget = projInitDTO.EpsgAutorityTarget,
+                    EpsgCodeArea = projInitDTO.EpsgCodeArea,
+                    EpsgCodeSource = projInitDTO.EpsgCodeSource,
+                    EpsgCodeTarget = projInitDTO.EpsgCodeTarget
+                };
+                _context.DbProjInit.Add(projInit);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetProjInit), new { id = projInit.Id }, ProjInfoToDTO(projInit));
+        }
+
+        /// <summary>
+        /// Update proj transformation parameters
+        /// </summary>
+        /// <returns>Proj parameters</returns>
         [HttpPut]
-        public async Task<AcceptedResult> UpdateProjInit()
+        public async Task<IActionResult> UpdateProjInit(int id, ProjInitDTO projInitDTO)
         {
+            if (id != projInitDTO.Id)
+                return BadRequest();
 
+            var projInit = await _context.DbProjInit.FindAsync(id);
+           
+            if (projInit == null)
+                return NotFound();
 
-            return null;
+            projInit.Id = projInitDTO.Id;
+            projInit.EpsgAutoritySource = projInitDTO.EpsgAutoritySource;
+            projInit.EpsgAutorityArea = projInitDTO.EpsgAutorityArea;
+            projInit.EpsgAutorityTarget = projInitDTO.EpsgAutorityTarget;
+            projInit.EpsgCodeTarget = projInitDTO.EpsgCodeTarget;
+            projInit.EpsgCodeSource = projInitDTO.EpsgCodeSource;
+            projInit.EpsgCodeArea = projInitDTO.EpsgCodeArea;
+
+            try
+            {
+                _context.Entry(projInit).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException) when (!ProjInitExists(id))
+            {
+                return NotFound();
+            }
+            return Ok();
+            return NoContent();
         }
 
+        private bool ProjInitExists(int id) => _context.DbProjInit.Any(e => e.Id == id);
 
         private static ProjInitDTO ProjInfoToDTO(ProjInit projInfo) =>
           new ProjInitDTO
           {
+              Id = projInfo.Id,
               EpsgAutorityArea = projInfo.EpsgAutorityArea,
               EpsgCodeArea = projInfo.EpsgCodeArea,
               EpsgAutoritySource = projInfo.EpsgAutoritySource,
