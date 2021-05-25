@@ -14,12 +14,12 @@ namespace AspCoreWebApi.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class ProjController : ControllerBase
+    public class ProjInitController : ControllerBase
     {
         private readonly ProjContexts _context;
-        private readonly ILogger<ProjController> _logger;
+        private readonly ILogger<ProjInitController> _logger;
 
-        public ProjController(ProjContexts context, ILogger<ProjController> logger)
+        public ProjInitController(ProjContexts context, ILogger<ProjInitController> logger)
         {
             _logger = logger;
             _context = context;
@@ -121,6 +121,22 @@ namespace AspCoreWebApi.Controllers
               EpsgAutorityTarget = projInfo.EpsgAutorityTarget,
               EpsgCodeTarget= projInfo.EpsgCodeTarget
           };
+
+    }
+
+    [Authorize]
+    [ApiController]
+    [Route("[controller]")]
+    public class ProjTransController : ControllerBase
+    {
+        private readonly ProjContexts _context;
+        private readonly ILogger<ProjTransController> _logger;
+
+        public ProjTransController(ProjContexts context, ILogger<ProjTransController> logger)
+        {
+            _logger = logger;
+            _context = context;
+        }
 
         [HttpGet]
         /// <summary>
