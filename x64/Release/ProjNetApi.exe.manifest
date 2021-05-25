@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProjCppApiNet.dll" size="3867136">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProjCppApiNet.dll" size="4042240">
       <assemblyIdentity name="ProjCppApiNet" version="1.1.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>745bxaku7cp85KAYNmNlXECXJQJdSj1iRKHCgDonhl4=</dsig:DigestValue>
+        <dsig:DigestValue>c6sM6/i7Bxd40ZxxxsHDZdkH4Fi0fiSNGAG/OVcucLM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

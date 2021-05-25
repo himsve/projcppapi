@@ -83,7 +83,7 @@ namespace AspCoreWebApi.Controllers
         }
 
         /// <summary>
-        /// Get a weather forecast with id
+        /// Update a weather forecast with id
         /// </summary>
         /// <param name="id">Id of the forecast to be updated</param>
         /// <param name="weatherForecastDTO">Forecast to be updated</param>

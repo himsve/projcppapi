@@ -4,6 +4,52 @@
         <name>AspCoreWebApi</name>
     </assembly>
     <members>
+        <member name="M:AspCoreWebApi.Controllers.ProjInitController.GetProjInit">
+            <summary>
+            Get proj transformation parameters
+            </summary>
+            <returns>Proj parameters</returns>
+        </member>
+        <member name="M:AspCoreWebApi.Controllers.ProjInitController.PostProjInit(AspCoreWebApi.Models.ProjInitDTO)">
+            <summary>
+            Set proj transformation parameters
+            </summary> 
+            <param name="projInitDTO">ProjInit to be added</param>
+            <returns>Result</returns>
+        </member>
+        <member name="M:AspCoreWebApi.Controllers.ProjInitController.UpdateProjInit(System.Int32,AspCoreWebApi.Models.ProjInitDTO)">
+            <summary>
+            Update proj transformation parameters
+            </summary>
+            <returns>Proj parameters</returns>
+        </member>
+        <member name="M:AspCoreWebApi.Controllers.ProjTransController.GetProjTransformed">
+            <summary>
+            Get proj transformed coordinates
+            </summary>
+            <returns>Transformed coordinates</returns>
+        </member>
+        <member name="M:AspCoreWebApi.Controllers.ProjTransController.GetProjTransformed(System.Int32)">
+            <summary>
+            Get proj transformed coordinates with id
+            </summary>
+            <returns>Transformed coordinates</returns>
+        </member>
+        <member name="M:AspCoreWebApi.Controllers.ProjTransController.PostProjTransformation(AspCoreWebApi.Models.ProjTransformDTO)">
+            <summary>
+            Add new transformed coordinate item  
+            </summary>
+            <param name="projTransformDTO">Transformed item to be added</param>
+            <returns>Result</returns>
+        </member>
+        <member name="M:AspCoreWebApi.Controllers.ProjTransController.UpdateProjTransformation(System.Int32,AspCoreWebApi.Models.ProjTransformDTO)">
+            <summary>
+            Update a transformed item with id
+            </summary>
+            <param name="id">Id of the forecast to be updated</param>
+            <param name="projTransformDTO">Transformed item to be updated</param>
+            <returns>Updated object</returns>
+        </member>
         <member name="M:AspCoreWebApi.Controllers.WeatherForecastController.GetWeatherForecasts">
             <summary>
             Get all the weather forecasts
@@ -26,7 +72,7 @@
         </member>
         <member name="M:AspCoreWebApi.Controllers.WeatherForecastController.UpdateWeatherForecast(System.Int32,AspCoreWebApi.Models.WeatherForecastDTO)">
             <summary>
-            Get a weather forecast with id
+            Update a weather forecast with id
             </summary>
             <param name="id">Id of the forecast to be updated</param>
             <param name="weatherForecastDTO">Forecast to be updated</param>

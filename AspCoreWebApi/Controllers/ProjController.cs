@@ -18,12 +18,14 @@ namespace AspCoreWebApi.Controllers
     {
         private readonly ProjContexts _context;
         private readonly ILogger<ProjInitController> _logger;
+        private ProjCppApiCore.ProjCppApiCore _projAppApiCore;
 
         public ProjInitController(ProjContexts context, ILogger<ProjInitController> logger)
         {
             _logger = logger;
             _context = context;
-        }
+            _projAppApiCore = _projAppApiCore ?? new ProjCppApiCore.ProjCppApiCore();
+    }
 
         /// <summary>
         /// Get proj transformation parameters
@@ -121,7 +123,6 @@ namespace AspCoreWebApi.Controllers
               EpsgAutorityTarget = projInfo.EpsgAutorityTarget,
               EpsgCodeTarget= projInfo.EpsgCodeTarget
           };
-
     }
 
     [Authorize]
@@ -131,6 +132,7 @@ namespace AspCoreWebApi.Controllers
     {
         private readonly ProjContexts _context;
         private readonly ILogger<ProjTransController> _logger;
+ 
 
         public ProjTransController(ProjContexts context, ILogger<ProjTransController> logger)
         {
@@ -168,7 +170,11 @@ namespace AspCoreWebApi.Controllers
             return ProjTransformToDTO(projTrans);
         }
 
-        // TODO: Summary
+        /// <summary>
+        /// Add new transformed coordinate item  
+        /// </summary>
+        /// <param name="projTransformDTO">Transformed item to be added</param>
+        /// <returns>Result</returns>
         [HttpPost]
         public async Task<ActionResult<ProjTransformDTO>> PostProjTransformation(ProjTransformDTO projTransformDTO)
         {
@@ -178,13 +184,18 @@ namespace AspCoreWebApi.Controllers
             };
 
             _context.DbProjTransform.Add(projTrans);
-
+           
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetProjTransformed), new { id = projTrans.Id }, ProjTransformToDTO(projTrans));
         }
 
-        // TODO: Summary
+        /// <summary>
+        /// Update a transformed item with id
+        /// </summary>
+        /// <param name="id">Id of the forecast to be updated</param>
+        /// <param name="projTransformDTO">Transformed item to be updated</param>
+        /// <returns>Updated object</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProjTransformation(int id, ProjTransformDTO projTransformDTO)
         {
