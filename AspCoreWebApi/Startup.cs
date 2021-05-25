@@ -68,7 +68,7 @@ namespace AspCoreWebApi
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1-foo/swagger.json", "Mitt API V1");
+                c.SwaggerEndpoint("/swagger/v1-foo/swagger.json", "Proj API V1");
             });
         }
     }
