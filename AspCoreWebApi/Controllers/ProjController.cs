@@ -168,6 +168,25 @@ namespace AspCoreWebApi.Controllers
             return ProjTransformToDTO(projTrans);
         }
 
+        // TODO: Summary
+        [HttpPost]
+        public async Task<ActionResult<ProjTransformDTO>> PostProjTransformation(ProjTransformDTO projTransformDTO)
+        {
+            var projTrans = new ProjTransform
+            {
+                Id = projTransformDTO.Id
+            };
+
+            _context.DbProjTransform.Add(projTrans);
+
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetProjTransformed), new { id = projTrans.Id }, ProjTransformToDTO(projTrans));
+        }
+
+        //[HttpPut("{id}")]
+
+
         private static ProjTransformDTO ProjTransformToDTO(ProjTransform projTransform) =>
             new ProjTransformDTO
             {
