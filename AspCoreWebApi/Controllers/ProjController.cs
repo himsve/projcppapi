@@ -161,7 +161,7 @@ namespace AspCoreWebApi.Controllers
         {
             var projTrans = await _context.DbProjTransform.FindAsync(id);
 
-            if (projTrans == null) 
+            if (projTrans == null)
             {
                 return NotFound();
             }
@@ -184,19 +184,51 @@ namespace AspCoreWebApi.Controllers
             return CreatedAtAction(nameof(GetProjTransformed), new { id = projTrans.Id }, ProjTransformToDTO(projTrans));
         }
 
-        //[HttpPut("{id}")]
+        // TODO: Summary
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProjTransformation(int id, ProjTransformDTO projTransformDTO)
+        {
+            if (id != projTransformDTO.Id)
+            {
+                return BadRequest();
+            }
 
+            var projTrans = await _context.DbProjTransform.FindAsync(id);
+            if (projTrans == null)
+            {
+                return NotFound();
+            }
+
+            projTrans.XInput = projTransformDTO.XInput;
+            projTrans.YInput = projTransformDTO.YInput;
+            projTrans.ZInput = projTransformDTO.ZInput;
+            projTrans.XOutput = projTransformDTO.XOutput;
+            projTrans.YOutput = projTransformDTO.YOutput;
+            projTrans.ZOutput = projTransformDTO.ZOutput;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException) when (!ProjTransformationExists(id))
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+        private bool ProjTransformationExists(int id) => _context.DbProjTransform.Any(e => e.Id == id);
 
         private static ProjTransformDTO ProjTransformToDTO(ProjTransform projTransform) =>
-            new ProjTransformDTO
-            {
-                Id = projTransform.Id,
-                XInput = projTransform.XInput,
-                YInput = projTransform.YInput,
-                ZInput = projTransform.ZInput,
-                XOutput = projTransform.XOutput,
-                YOutput = projTransform.YOutput,
-                ZOutput = projTransform.ZOutput
-          };
+        new ProjTransformDTO
+        {
+            Id = projTransform.Id,
+            XInput = projTransform.XInput,
+            YInput = projTransform.YInput,
+            ZInput = projTransform.ZInput,
+            XOutput = projTransform.XOutput,
+            YOutput = projTransform.YOutput,
+            ZOutput = projTransform.ZOutput
+        };
     }
 }
