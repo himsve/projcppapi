@@ -138,19 +138,34 @@ namespace AspCoreWebApi.Controllers
             _context = context;
         }
 
-        [HttpGet]
         /// <summary>
         /// Get proj transformed coordinates
         /// </summary>
         /// <returns>Transformed coordinates</returns>
-        public async Task<ActionResult<ProjTransformDTO>> GetProjTransformed()
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<ProjTransformDTO>>> GetProjTransformed()
         {
-            var projTransform = await _context.DbProjTransform.FirstOrDefaultAsync();
-            if (projTransform == null)
+            return await _context.DbProjTransform.Select(x => ProjTransformToDTO(x)).ToListAsync();
+        }
+
+        /// <summary>
+        /// Get proj transformed coordinates with id
+        /// </summary>
+        /// <returns>Transformed coordinates</returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<ProjTransformDTO>> GetProjTransformed(int id)
+        {
+            var projTrans = await _context.DbProjTransform.FindAsync(id);
+
+            if (projTrans == null) 
             {
                 return NotFound();
             }
-            return ProjTransformToDTO(projTransform);
+            return ProjTransformToDTO(projTrans);
         }
 
         private static ProjTransformDTO ProjTransformToDTO(ProjTransform projTransform) =>

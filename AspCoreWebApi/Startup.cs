@@ -33,7 +33,7 @@ namespace AspCoreWebApi
             //services.AddDbContext<WeatherForecastContext>(opt => opt.UseInMemoryDatabase(nameof(WeatherForecastContext.DbWeatherForeCasts)));
             services.AddDbContext<ProjContexts>(opt => opt.UseInMemoryDatabase(nameof(ProjContexts.DbProjInit)));
             services.AddDbContext<ProjContexts>(opt => opt.UseInMemoryDatabase(nameof(ProjContexts.DbProjTransform)));
-
+            
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
