@@ -16,10 +16,10 @@ namespace AspCoreWebApi.Controllers
     [Route("[controller]")]
     public class ProjController : ControllerBase
     {
-        private readonly ProjInitContexts _context;
+        private readonly ProjContexts _context;
         private readonly ILogger<ProjController> _logger;
 
-        public ProjController(ProjInitContexts context, ILogger<ProjController> logger)
+        public ProjController(ProjContexts context, ILogger<ProjController> logger)
         {
             _logger = logger;
             _context = context;
@@ -120,6 +120,33 @@ namespace AspCoreWebApi.Controllers
               EpsgCodeSource = projInfo.EpsgCodeSource,
               EpsgAutorityTarget = projInfo.EpsgAutorityTarget,
               EpsgCodeTarget= projInfo.EpsgCodeTarget
+          };
+
+        [HttpGet]
+        /// <summary>
+        /// Get proj transformed coordinates
+        /// </summary>
+        /// <returns>Transformed coordinates</returns>
+        public async Task<ActionResult<ProjTransformDTO>> GetProjTransformed()
+        {
+            var projTransform = await _context.DbProjTransform.FirstOrDefaultAsync();
+            if (projTransform == null)
+            {
+                return NotFound();
+            }
+            return ProjTransformToDTO(projTransform);
+        }
+
+        private static ProjTransformDTO ProjTransformToDTO(ProjTransform projTransform) =>
+            new ProjTransformDTO
+            {
+                Id = projTransform.Id,
+                XInput = projTransform.XInput,
+                YInput = projTransform.YInput,
+                ZInput = projTransform.ZInput,
+                XOutput = projTransform.XOutput,
+                YOutput = projTransform.YOutput,
+                ZOutput = projTransform.ZOutput
           };
     }
 }

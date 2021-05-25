@@ -7,6 +7,7 @@ namespace AspCoreWebApi.Models
 {
     public class ProjTransform
     {
+        public long Id { get; set; } = 0;
         public double XInput { get; set; }
         public double YInput { get; set; }
         public double ZInput { get; set; }
