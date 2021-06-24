@@ -35,20 +35,27 @@
             </summary>
             <returns>Transformed coordinates</returns>
         </member>
-        <member name="M:AspCoreWebApi.Controllers.ProjTransController.PostProjTransformation(AspCoreWebApi.Models.ProjTransformDTO)">
+        <member name="M:AspCoreWebApi.Controllers.ProjTransController.PostProjTransformed(AspCoreWebApi.Models.ProjTransformDTO)">
             <summary>
             Add new transformed coordinate item  
             </summary>
             <param name="projTransformDTO">Transformed item to be added</param>
             <returns>Result</returns>
         </member>
-        <member name="M:AspCoreWebApi.Controllers.ProjTransController.UpdateProjTransformation(System.Int32,AspCoreWebApi.Models.ProjTransformDTO)">
+        <member name="M:AspCoreWebApi.Controllers.ProjTransController.UpdateProjTransformed(System.Int32,AspCoreWebApi.Models.ProjTransformDTO)">
             <summary>
             Update a transformed item with id
             </summary>
             <param name="id">Id of the forecast to be updated</param>
             <param name="projTransformDTO">Transformed item to be updated</param>
             <returns>Updated object</returns>
+        </member>
+        <member name="M:AspCoreWebApi.Controllers.ProjTransController.DeleteProjTransformed(System.Int32)">
+            <summary>
+            Removes a forecast from the list
+            </summary>
+            <param name="id">Id of the forecast to be deleted</param>
+            <returns>Result</returns>
         </member>
         <member name="M:AspCoreWebApi.Controllers.WeatherForecastController.GetWeatherForecasts">
             <summary>

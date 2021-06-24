@@ -9,7 +9,7 @@ namespace ProjCoreApi
 
         public ProjCoreApi()
         {
-            _projCoreApi = new ProjCppApiCore.ProjCppApiCore();
+            _projCoreApi ??= new ProjCppApiCore.ProjCppApiCore();
         }
 
         public static void Main()

@@ -24,8 +24,8 @@ namespace AspCoreWebApi.Controllers
         {
             _logger = logger;
             _context = context;
-            _projAppApiCore = _projAppApiCore ?? new ProjCppApiCore.ProjCppApiCore();
-    }
+            _projAppApiCore ??= new ProjCppApiCore.ProjCppApiCore();
+        }
 
         /// <summary>
         /// Get proj transformation parameters
@@ -131,8 +131,7 @@ namespace AspCoreWebApi.Controllers
     public class ProjTransController : ControllerBase
     {
         private readonly ProjContexts _context;
-        private readonly ILogger<ProjTransController> _logger;
- 
+        private readonly ILogger<ProjTransController> _logger; 
 
         public ProjTransController(ProjContexts context, ILogger<ProjTransController> logger)
         {
@@ -176,7 +175,7 @@ namespace AspCoreWebApi.Controllers
         /// <param name="projTransformDTO">Transformed item to be added</param>
         /// <returns>Result</returns>
         [HttpPost]
-        public async Task<ActionResult<ProjTransformDTO>> PostProjTransformation(ProjTransformDTO projTransformDTO)
+        public async Task<ActionResult<ProjTransformDTO>> PostProjTransformed(ProjTransformDTO projTransformDTO)
         {
             var projTrans = new ProjTransform
             {
@@ -197,7 +196,7 @@ namespace AspCoreWebApi.Controllers
         /// <param name="projTransformDTO">Transformed item to be updated</param>
         /// <returns>Updated object</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProjTransformation(int id, ProjTransformDTO projTransformDTO)
+        public async Task<IActionResult> UpdateProjTransformed(int id, ProjTransformDTO projTransformDTO)
         {
             if (id != projTransformDTO.Id)
             {
@@ -216,6 +215,7 @@ namespace AspCoreWebApi.Controllers
             projTrans.XOutput = projTransformDTO.XOutput;
             projTrans.YOutput = projTransformDTO.YOutput;
             projTrans.ZOutput = projTransformDTO.ZOutput;
+            projTrans.Epoch = projTransformDTO.Epoch;
 
             try
             {
@@ -225,6 +225,26 @@ namespace AspCoreWebApi.Controllers
             {
                 return NotFound();
             }
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Removes a forecast from the list
+        /// </summary>
+        /// <param name="id">Id of the forecast to be deleted</param>
+         /// <returns>Result</returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProjTransformed(int id)
+        {
+            var projTrans = await _context.DbProjTransform.FindAsync(id);
+            if (projTrans == null)
+            {
+                return NotFound();
+            }
+            _context.DbProjTransform.Remove(projTrans);
+           
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
@@ -239,7 +259,8 @@ namespace AspCoreWebApi.Controllers
             ZInput = projTransform.ZInput,
             XOutput = projTransform.XOutput,
             YOutput = projTransform.YOutput,
-            ZOutput = projTransform.ZOutput
+            ZOutput = projTransform.ZOutput,
+            Epoch = projTransform.Epoch
         };
     }
 }

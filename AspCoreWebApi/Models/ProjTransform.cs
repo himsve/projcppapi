@@ -14,5 +14,6 @@ namespace AspCoreWebApi.Models
         public double XOutput { get; set; }
         public double YOutput { get; set; }
         public double ZOutput { get; set; }
+        public double Epoch { get; set; }
     }
 }

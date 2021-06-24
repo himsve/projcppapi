@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>23578600-2af4-4423-8200-6e10c82cb6c2</UserSecretsId>
     <Platforms>AnyCPU;x64</Platforms>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -66,7 +67,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProjCppApiCore\ProjCppApiCore.vcxproj" />
+    <ProjectReference Include="..\ProjCppApiCore\ProjCppApiCore.vcxproj">
+      <Private>true</Private>
+    </ProjectReference>
   </ItemGroup>
 
 
