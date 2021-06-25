@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AspCoreWebApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AspCoreWebApi.Models;
-using Microsoft.EntityFrameworkCore;
+using ProjCppApiCore;
 
 namespace AspCoreWebApi.Controllers
 {
@@ -71,6 +72,11 @@ namespace AspCoreWebApi.Controllers
 
             await _context.SaveChangesAsync();
 
+            _projAppApiCore.InitializeProj(
+                projInit.EpsgAutoritySource + ":" + projInit.EpsgCodeSource,
+                projInit.EpsgAutorityTarget + ":" + projInit.EpsgCodeTarget,
+                projInit.EpsgAutorityArea + ":" + projInit.EpsgCodeArea);
+
             return CreatedAtAction(nameof(GetProjInit), new { id = projInit.Id }, ProjInfoToDTO(projInit));
         }
 
@@ -100,6 +106,12 @@ namespace AspCoreWebApi.Controllers
             try
             {
                 _context.Entry(projInit).State = EntityState.Modified;
+
+                _projAppApiCore.InitializeProj(
+                    projInit.EpsgAutoritySource + ":" + projInit.EpsgCodeSource,
+                    projInit.EpsgAutorityTarget + ":" + projInit.EpsgCodeTarget,
+                    projInit.EpsgAutorityArea + ":" + projInit.EpsgCodeArea);
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException) when (!ProjInitExists(id))
@@ -107,7 +119,7 @@ namespace AspCoreWebApi.Controllers
                 return NotFound();
             }
             return Ok();
-            return NoContent();
+            return NoContent(); // TODO: Check this return value
         }
 
         private bool ProjInitExists(int id) => _context.DbProjInit.Any(e => e.Id == id);
@@ -121,7 +133,7 @@ namespace AspCoreWebApi.Controllers
               EpsgAutoritySource = projInfo.EpsgAutoritySource,
               EpsgCodeSource = projInfo.EpsgCodeSource,
               EpsgAutorityTarget = projInfo.EpsgAutorityTarget,
-              EpsgCodeTarget= projInfo.EpsgCodeTarget
+              EpsgCodeTarget = projInfo.EpsgCodeTarget
           };
     }
 
@@ -131,9 +143,10 @@ namespace AspCoreWebApi.Controllers
     public class ProjTransController : ControllerBase
     {
         private readonly ProjContexts _context;
-        private readonly ILogger<ProjTransController> _logger; 
+        private readonly ILogger<ProjTransController> _logger;
+        private ProjCppApiCore.ProjCppApiCore _projAppApiCore; //
 
-        public ProjTransController(ProjContexts context, ILogger<ProjTransController> logger)
+        public ProjTransController(ProjContexts context, ILogger<ProjTransController> logger, ProjCppApiCore.ProjCppApiCore testObject)
         {
             _logger = logger;
             _context = context;
@@ -179,7 +192,11 @@ namespace AspCoreWebApi.Controllers
         {
             var projTrans = new ProjTransform
             {
-                Id = projTransformDTO.Id
+                Id = projTransformDTO.Id,
+                XInput = projTransformDTO.XInput,
+                YInput = projTransformDTO.YInput,
+                ZInput = projTransformDTO.ZInput,
+                Epoch = projTransformDTO.Epoch
             };
 
             _context.DbProjTransform.Add(projTrans);
