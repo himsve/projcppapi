@@ -61,12 +61,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <OpenApiReference Include="data.json">
-      <CodeGenerator>NSwagCSharp</CodeGenerator>
-    </OpenApiReference>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ProjCppApiCore\ProjCppApiCore.vcxproj">
       <Private>true</Private>
     </ProjectReference>
