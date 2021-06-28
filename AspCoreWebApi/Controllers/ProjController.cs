@@ -144,12 +144,18 @@ namespace AspCoreWebApi.Controllers
     {
         private readonly ProjContexts _context;
         private readonly ILogger<ProjTransController> _logger;
-        private ProjCppApiCore.ProjCppApiCore _projAppApiCore; //
 
-        public ProjTransController(ProjContexts context, ILogger<ProjTransController> logger, ProjCppApiCore.ProjCppApiCore testObject)
+        // Testing:
+        private ProjCppApiCore.ProjCppApiCore _projAppApiCore;
+        //private DbSet<ProjInit> _projInitDbSet;
+
+        public ProjTransController(ProjContexts context, ILogger<ProjTransController> logger /*, ProjCppApiCore.ProjCppApiCore testObject*/)
         {
             _logger = logger;
             _context = context;
+
+            // Testing:
+           // _projInitDbSet = _context.DbProjInit;
         }
 
         /// <summary>
@@ -199,8 +205,12 @@ namespace AspCoreWebApi.Controllers
                 Epoch = projTransformDTO.Epoch
             };
 
+            var X = 0d; var Y = 0d; var Z = 0d;
+
+            _context.ProjObject.Transform(projTrans.XInput, projTrans.YInput, projTrans.ZInput, projTrans.Epoch, ref X, ref Y, ref Z);
+            
             _context.DbProjTransform.Add(projTrans);
-           
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetProjTransformed), new { id = projTrans.Id }, ProjTransformToDTO(projTrans));

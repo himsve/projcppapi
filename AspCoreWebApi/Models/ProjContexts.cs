@@ -8,13 +8,19 @@ namespace AspCoreWebApi.Models
 {
     public class ProjContexts : DbContext
     {
+        private ProjCppApiCore.ProjCppApiCore _projAppApiCore;
+
         public ProjContexts(DbContextOptions<ProjContexts> options)
              : base(options)
         {
+            _projAppApiCore ??= new ProjCppApiCore.ProjCppApiCore();
         }
         
         public DbSet<ProjInit> DbProjInit { get; set; }
         public DbSet<ProjTransform> DbProjTransform { get; set; }
+
+        // Testing
+        public ProjCppApiCore.ProjCppApiCore ProjObject => _projAppApiCore;
     }
 
     public class ProjInitDTO
