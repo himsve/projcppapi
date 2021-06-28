@@ -171,7 +171,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);C:\Users\Administrator\source\repos\PROJ\include\proj;$(USERPROFILE)\Miniconda3\Library\include;$(USERPROFILE)\Miniconda3\Library\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);C:\Users\Administrator\source\repos\PROJ\include\proj;$(USERPROFILE)\Miniconda3\Library\include;$(USERPROFILE)\Miniconda3\Library\include;$(PROJ_LIB)\include</AdditionalIncludeDirectories>
       <SupportJustMyCode>false</SupportJustMyCode>
     </ClCompile>
     <Link>
@@ -179,7 +179,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies);C:\Users\Administrator\source\repos\PROJ\build\lib\Release\proj.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);C:\Users\Administrator\source\repos\PROJ\build\lib\Release\proj.lib;$(PROJ_LIB)</AdditionalDependencies>
     </Link>
     <Lib>
       <AdditionalDependencies>C:\Users\himsve\Miniconda3\Library\lib\proj.lib;C:\Users\himsve\Miniconda3\Library\lib\sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
