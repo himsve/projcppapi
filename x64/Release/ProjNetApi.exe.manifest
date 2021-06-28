@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProjNetApi.exe" size="5568">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProjNetApi.exe" size="6080">
       <assemblyIdentity name="ProjNetApi" version="1.1.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>osJxlMjeCxUTEhhZl3V8kDBFLhNzHfLGnYTqFZR8kZQ=</dsig:DigestValue>
+        <dsig:DigestValue>0EXubJb264p8sx5Fp/ucm/3xjeyJv5Z4kqyzRsELatU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
