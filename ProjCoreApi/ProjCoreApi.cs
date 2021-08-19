@@ -43,46 +43,60 @@ namespace ProjCoreApi
 
                 Console.WriteLine("Enter source coordinate: ");
 
-                while (true)
+                do
                 {
-                    var inputCoord = Console.ReadLine().Split(new char[] { ' ', ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    double xInput = 2987993.64255, yInput = 655946.42161, zInput = 5578690.43270, epoch = 2020.0;
-
-                    if (inputCoord.Length >= 2)
-                    {
-                        if (!double.TryParse(inputCoord[0], out xInput) || !double.TryParse(inputCoord[1], out yInput))
+                    while (!Console.KeyAvailable)
+                    {                        
+                        while (Console.ReadKey(true).Key == ConsoleKey.Escape)
                         {
-                            Console.WriteLine("Input parsing failed");
                             return;
+                        }                     
+
+                        var inputCoord = Console.ReadLine().Split(new char[] { ' ', ';', ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        double xInput = 2987993.64255, yInput = 655946.42161, zInput = 5578690.43270, epoch = 2020.0;
+
+                        if (inputCoord.Length < 2)
+                            continue;
+
+                        if (inputCoord.Length >= 2)
+                        {
+                            if (!double.TryParse(inputCoord[0], out xInput) || !double.TryParse(inputCoord[1], out yInput))
+                            {
+                                Console.WriteLine("Input parsing failed");
+                                continue;
+                            }
                         }
+                        if (inputCoord.Length >= 3)
+                        {
+                            if (!double.TryParse(inputCoord[2], out zInput))
+                            {
+                                Console.WriteLine("Input parsing failed");
+                                continue;
+                            }
+                        }
+                        if (inputCoord.Length >= 4)
+                        {
+                            if (!double.TryParse(inputCoord[3], out epoch))
+                            {
+                                Console.WriteLine("Input parsing failed");
+                                continue;
+                            }
+                        }
+
+                        double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
+
+                        res = o.Transform(xInput, yInput, zInput, epoch, ref xOutput, ref yOutput, ref zOutput);
+
+                        if (!res)
+                        {
+                            Console.WriteLine("Transformation failed");
+                            continue;
+                        }
+
+                        Console.WriteLine($"Target coordinate: {xOutput} {yOutput} {zOutput}");
                     }
-                    if (inputCoord.Length >= 3)
-                        if (!double.TryParse(inputCoord[2], out zInput))
-                        {
-                            Console.WriteLine("Input parsing failed");
-                            return;
-                        }
-
-                    if (inputCoord.Length >= 4)
-                        if (!double.TryParse(inputCoord[3], out epoch))
-                        {
-                            Console.WriteLine("Input parsing failed");
-                            return;
-                        }
-
-                    double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
-
-                    res = o.Transform(xInput, yInput, zInput, epoch, ref xOutput, ref yOutput, ref zOutput);
-
-                    if (!res)
-                    {
-                        Console.WriteLine("Transformation failed");
-                        continue;
-                    }
-
-                    Console.WriteLine($"Target coordinate: {xOutput} {yOutput} {zOutput}");
-                }
+                } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
             }
             catch (Exception ex)
             {
