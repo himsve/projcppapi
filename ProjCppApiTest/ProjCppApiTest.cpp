@@ -10,7 +10,12 @@ namespace ProjCppApiTest
 {
 	TEST_CLASS(ProjCppApiTest)
 	{
-	public:		
+	public:
+		double fRand(double fMin, double fMax)
+		{
+			double f = (double)rand() / RAND_MAX;
+			return fMin + f * (fMax - fMin);
+		}
 		TEST_METHOD(ProjGetArea_EPSG7789_EPSG4936)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
@@ -57,9 +62,9 @@ namespace ProjCppApiTest
 			res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
 
 			Assert::IsTrue(res);
-			Assert::AreEqual(xOutput, 2987994.11660, 1E-04);
-			Assert::AreEqual(yOutput, 655946.05964, 1E-04);
-			Assert::AreEqual(zOutput, 5578690.00490, 1E-04);
+			Assert::AreEqual(xOutput, 2987994.1200, 1E-04);
+			Assert::AreEqual(yOutput, 655946.0593, 1E-04);
+			Assert::AreEqual(zOutput, 5578690.01005, 1E-04);
 
 			wrapper.DestroyProj();
 		}
@@ -93,13 +98,13 @@ namespace ProjCppApiTest
 			double epoch = 2020.0;
 			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
 
-			for (int i = 0; i < 10000; i++)
+			for (int i = 0; i < 10000000; i++)
 			{
-				xInput += 1.0;
-				yInput += 1.0;
-				zInput += 1.0;
+				xInput += fRand(-0.0001, 0.0001);
+				yInput += fRand(-0.0001, 0.0001);
+				zInput += fRand(-0.0001, 0.0001);
 
-				res = wrapper.Transform(xInput++, yInput++, zInput++, epoch, xOutput, yOutput, zOutput);
+				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
 			
 				Assert::IsTrue(res);
 			}
@@ -142,9 +147,9 @@ namespace ProjCppApiTest
 			res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
 			
 			Assert::IsTrue(res);
-			Assert::AreEqual(xOutput, 2987994.11660, 1E-04);
-			Assert::AreEqual(yOutput, 655946.05964, 1E-04);
-			Assert::AreEqual(zOutput, 5578690.00490, 1E-04);
+			Assert::AreEqual(xOutput, 2987994.1200, 1E-04);
+			Assert::AreEqual(yOutput, 655946.0593, 1E-04);
+			Assert::AreEqual(zOutput, 5578690.01005, 1E-04);
 
 			wrapper.DestroyProj();
 		}
@@ -174,16 +179,16 @@ namespace ProjCppApiTest
 
 			bool res = wrapper.InitializeProj("EPSG:4937", "EPSG:4273", "");
 			Assert::IsTrue(res);
-
-			double xInput = 5.0, yInput = 59.0, zInput = 0.0;
+			
+			double xInput = 10.0, yInput = 61.0, zInput = 0.0;
 			double epoch = 2020.0;
 			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
 
-			for (int i = 0; i < 1000; i++)
+			for (int i = 0; i < 10000000; i++)
 			{
-				xInput += 0.00001;
-				yInput += 0.00001;
-				zInput += 0.01;
+				xInput += fRand(-0.0000001, 0.0000001);				
+				yInput += fRand(-0.0000001, 0.0000001);
+				zInput += fRand(-0.0000001, 0.0000001);
 
 				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
 				Assert::IsTrue(res);
@@ -209,7 +214,6 @@ namespace ProjCppApiTest
 
 			wrapper.DestroyProj();
 		}
-		
 		TEST_METHOD(DestroyProj)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
@@ -226,7 +230,6 @@ namespace ProjCppApiTest
 
 			Assert::IsFalse(res == "");
 		}
-
 		TEST_METHOD(SetDatabasePath)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
