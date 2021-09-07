@@ -92,33 +92,37 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(const char* strSourceCrs, co
 
 	if (strAuthorityArea != nullptr)
 	{
-		std::vector<std::string> tokens;
-		std::istringstream ss { strAuthorityArea };
-		std::string token;
+		std::istringstream ss{ strAuthorityArea };
 
-		while (std::getline(ss, token, ':'))
-			if (!token.empty())
-				tokens.push_back(token);
-		
-		if (tokens.size() != 2)
-			return false;
-
-		const std::string& areaAuth = tokens[0];
-		const std::string& areaCode = tokens[1];
-
-		DatabaseContextPtr dbContext = DatabaseContext::create(resourcePath).as_nullable();
-		ExtentPtr bboxFilter = AuthorityFactory::create(NN_NO_CHECK(dbContext), areaAuth)->createExtent(areaCode).as_nullable();
-		
-		if (bboxFilter)
+		if (ss.str() != "")
 		{
-			auto geogElts = bboxFilter->geographicElements();
-			if (geogElts.size() == 1)
+			std::vector<std::string> tokens;
+			std::string token;
+
+			while (std::getline(ss, token, ':'))
+				if (!token.empty())
+					tokens.push_back(token);
+
+			if (tokens.size() != 2)
+				return false;
+
+			const std::string& areaAuth = tokens[0];
+			const std::string& areaCode = tokens[1];
+
+			DatabaseContextPtr dbContext = DatabaseContext::create(resourcePath).as_nullable();
+			ExtentPtr bboxFilter = AuthorityFactory::create(NN_NO_CHECK(dbContext), areaAuth)->createExtent(areaCode).as_nullable();
+
+			if (bboxFilter)
 			{
-				auto bbox = std::dynamic_pointer_cast<GeographicBoundingBox>(geogElts[0].as_nullable());
-				if (bbox)
+				auto geogElts = bboxFilter->geographicElements();
+				if (geogElts.size() == 1)
 				{
-					m_pj_area = proj_area_create();
-					proj_area_set_bbox(m_pj_area, bbox->westBoundLongitude(), bbox->southBoundLatitude(), bbox->eastBoundLongitude(), bbox->northBoundLatitude());
+					auto bbox = std::dynamic_pointer_cast<GeographicBoundingBox>(geogElts[0].as_nullable());
+					if (bbox)
+					{
+						m_pj_area = proj_area_create();
+						proj_area_set_bbox(m_pj_area, bbox->westBoundLongitude(), bbox->southBoundLatitude(), bbox->eastBoundLongitude(), bbox->northBoundLatitude());
+					}
 				}
 			}
 		}
