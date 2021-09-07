@@ -22,12 +22,13 @@ namespace ProjCppApiTest
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
-			const char* res = wrapper.ProjGetArea("EPSG:7789", "EPSG:4936");
+			const char* result = wrapper.ProjGetArea("EPSG:7789", "EPSG:4936");
 
-			Assert::AreEqual(res, "Norway - onshore.");
-			Assert::IsNotNull(res);
+			Assert::AreEqual(result, "Norway - onshore.");
+			Assert::IsNotNull(result);
 
-			wrapper.DestroyProj();
+			bool res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
 		}
 		TEST_METHOD(InitializeProj_EPSG7789_EPSG4936_EPSG1352)
 		{
@@ -37,7 +38,8 @@ namespace ProjCppApiTest
 
 			Assert::IsTrue(res);
 
-			wrapper.DestroyProj();
+		    res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
 		}
 		TEST_METHOD(InitializeProj_EPSG7789_EPSG4936)
 		{
@@ -47,7 +49,8 @@ namespace ProjCppApiTest
 
 			Assert::IsTrue(res);
 
-			wrapper.DestroyProj();
+		    res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
 		}
 		TEST_METHOD(Transform_EPSG7789_EPSG4936_EPSG1352)
 		{
@@ -67,26 +70,9 @@ namespace ProjCppApiTest
 			Assert::AreEqual(xOutput, 2987994.1200, 1E-04);
 			Assert::AreEqual(yOutput, 655946.0593, 1E-04);
 			Assert::AreEqual(zOutput, 5578690.01005, 1E-04);
-
-			wrapper.DestroyProj();
-		}
-		TEST_METHOD(Transform_EPSG7789_EPSG4936_EPSG1352_OUTSIDE)
-		{
-			ProjCppWrapper::ProjCppWrapper wrapper;
-
-			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG:1352");
+	
+			res = wrapper.DestroyProj();
 			Assert::IsTrue(res);
-
-			//#ESBC
-    		// accept      3582104.8458    532590.0946   5232755.0863 2015.0
-			double xInput = 3582104.8458, yInput = 532590.0946, zInput = 5232755.0863;
-			double epoch = 2020.0;
-			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
-
-			res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
-			Assert::IsFalse(res);
-
-			wrapper.DestroyProj();
 		}
 		TEST_METHOD(Transform_EPSG7789_EPSG4936_EPSG1080)
 		{
@@ -107,8 +93,9 @@ namespace ProjCppApiTest
 			Assert::AreEqual(xOutput, 3582105.2916, 1E-04);
 			Assert::AreEqual(yOutput, 532589.7310, 1E-04);
 			Assert::AreEqual(zOutput, 5232754.8057, 1E-04);
-
-			wrapper.DestroyProj();
+			
+			res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
 		}
 		TEST_METHOD(Transform_EPSG7789_EPSG4936)
 		{
@@ -128,8 +115,9 @@ namespace ProjCppApiTest
 			Assert::AreEqual(xOutput, 2987994.1200, 1E-04);
 			Assert::AreEqual(yOutput, 655946.0593, 1E-04);
 			Assert::AreEqual(zOutput, 5578690.01005, 1E-04);
-
-			wrapper.DestroyProj();
+			
+			res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
 		}
 		TEST_METHOD(Transform_EPSG4937_EPSG4273)
 		{
@@ -148,10 +136,11 @@ namespace ProjCppApiTest
 			Assert::AreEqual(xOutput,9.9940136662563610,1E-11);
 			Assert::AreEqual(yOutput,60.003804193826781,1E-11);
 			Assert::AreEqual(zOutput,100.0, 1E-03);
-
-			wrapper.DestroyProj();
+			
+			res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
 		}
-		TEST_METHOD(Transform_ProjString_LatLon_UTM32)
+		TEST_METHOD(Transform_ProjString_LatLon_Utm)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
@@ -168,9 +157,10 @@ namespace ProjCppApiTest
 			Assert::IsTrue(yOutput != HUGE_VAL);
 			Assert::IsTrue(zOutput != HUGE_VAL);
 
-			wrapper.DestroyProj();
+			res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
 		}
-		TEST_METHOD(Transform_EPSG7789_EPSG4936_EPSG1352_STRESSTEST)
+		TEST_METHOD(Transform_EPSG7789_EPSG4936_EPSG1352_Stresstest)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
@@ -184,17 +174,18 @@ namespace ProjCppApiTest
 
 			for (int i = 0; i < noOfPoint; i++)
 			{
-				xInput += fRand(-0.0001, 0.0001);
-				yInput += fRand(-0.0001, 0.0001);
-				zInput += fRand(-0.0001, 0.0001);
+				xInput += fRand(-0.001, 0.001);
+				yInput += fRand(-0.001, 0.001);
+				zInput += fRand(-0.001, 0.001);
 
 				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
 
 				Assert::IsTrue(res);
 			}
-			wrapper.DestroyProj();
+			res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
 		}
-		TEST_METHOD(Transform_EPSG4937_EPSG4273_STRESSTEST)
+		TEST_METHOD(Transform_EPSG4937_EPSG4273_Stresstest)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
@@ -214,14 +205,215 @@ namespace ProjCppApiTest
 				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
 				Assert::IsTrue(res);
 			}
-			wrapper.DestroyProj();
+			res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
 		}
-		TEST_METHOD(DestroyProj)
+		TEST_METHOD(Transform_Utm_To_LatLon_Stresstest)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
-			bool res = wrapper.DestroyProj();
+			bool res = wrapper.InitializeProj("+proj=utm +ellps=GRS80 +zone=32 +inv");
+			Assert::IsTrue(res);
 
+			double xInput = 600000.0, yInput = 6610000.0, zInput = 100.0;
+			double epoch = 2020.0;
+			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
+
+			for (int i = 0; i < noOfPoint; i++)
+			{
+				xInput += fRand(-0.00001, 0.00001);
+				yInput += fRand(-0.00001, 0.00001);
+				zInput += fRand(-0.00001, 0.00001);
+
+				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
+				Assert::IsTrue(res);
+			}
+			res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
+		}
+		TEST_METHOD(Transform_LatLon_To_Utm_Stresstest)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			bool res = wrapper.InitializeProj("+proj=utm +ellps=GRS80 +zone=32");
+			Assert::IsTrue(res);
+
+			double xInput = 10, yInput = 60, zInput = 100.0;
+			double epoch = 2020.0;
+			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
+
+			for (int i = 0; i < noOfPoint; i++)
+			{
+				xInput += fRand(-0.0000001, 0.0000001);
+				yInput += fRand(-0.0000001, 0.0000001);
+				zInput += fRand(-0.0000001, 0.0000001);
+
+				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
+				Assert::IsTrue(res);
+			}
+			res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
+		}
+		TEST_METHOD(Transform_LatLon_To_Geocentric_Stresstest)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			bool res = wrapper.InitializeProj("+proj=cart +ellps=GRS80");
+			Assert::IsTrue(res);
+
+			double xInput = 10, yInput = 60, zInput = 100.0;
+			double epoch = 2020.0;
+			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
+
+			for (int i = 0; i < noOfPoint; i++)
+			{
+				xInput += fRand(-0.0000001, 0.0000001);
+				yInput += fRand(-0.0000001, 0.0000001);
+				zInput += fRand(-0.0000001, 0.0000001);
+
+				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
+				Assert::IsTrue(res);
+			}
+			res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
+		}
+		TEST_METHOD(Transform_Utm_To_Utm_Stresstest)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			bool res = wrapper.InitializeProj("+proj=pipeline +step +proj=utm +ellps=GRS80 +zone=32 +inv +step +proj=utm +zone=33");
+			Assert::IsTrue(res);
+
+			double xInput = 600000.0, yInput = 6610000.0, zInput = 100.0;
+			double epoch = 2020.0;
+			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
+
+			for (int i = 0; i < noOfPoint; i++)
+			{
+				xInput += fRand(-0.00001, 0.00001);
+				yInput += fRand(-0.00001, 0.00001);
+				zInput += fRand(-0.00001, 0.00001);
+
+				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
+				Assert::IsTrue(res);
+			}
+			res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
+		}
+		TEST_METHOD(Transform_Vgridshift_Stresstest)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+			 
+			bool res = wrapper.InitializeProj("+proj=vgridshift +grids=no_kv_HREF2018B_NN2000_EUREF89.tif");
+			Assert::IsTrue(res);
+
+			double xInput = 8.0, yInput = 60.0, zInput = 100.0;
+			double epoch = 2020.0;
+			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
+
+			for (int i = 0; i < noOfPoint; i++)
+			{
+				xInput += fRand(-0.000001, 0.000001);
+				yInput += fRand(-0.000001, 0.000001);
+				zInput += fRand(-0.000001, 0.000001);
+
+				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
+				Assert::IsTrue(res);
+			}
+			res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
+		}
+		TEST_METHOD(Transform_Hgridshift_Stresstest)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			bool res = wrapper.InitializeProj("+proj=hgridshift +grids=no_kv_ETRS89_ED50.tif");
+			Assert::IsTrue(res);
+
+			double xInput = 8.0, yInput = 60.0, zInput = 100.0;
+			double epoch = 2020.0;
+			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
+
+			for (int i = 0; i < noOfPoint; i++)
+			{
+				xInput += fRand(-0.000001, 0.000001);
+				yInput += fRand(-0.000001, 0.000001);
+				zInput += fRand(-0.000001, 0.000001);
+
+				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
+				Assert::IsTrue(res);
+			}
+			res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
+		}
+		TEST_METHOD(Transform_Xyzgridshift_Stresstest)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+			   
+			double xInput = 3148533.4299, yInput = 555171.4330, zInput = 5500477.0872;
+			double epoch = 2020.0;
+			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
+
+			bool res = wrapper.InitializeProj("+proj=xyzgridshift +grids=no_kv_NKGETRF14_EPSG7922_2000.tif");
+			Assert::IsTrue(res);
+
+			for (int i = 0; i < noOfPoint; i++)
+			{
+				xInput += fRand(-0.001, 0.001);
+				yInput += fRand(-0.001, 0.001);
+				zInput += fRand(-0.001, 0.001);
+
+				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
+				Assert::IsTrue(res);
+			}
+			res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
+		}
+		TEST_METHOD(Transform_TIN_Stresstest)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			bool res = wrapper.InitializeProj("+proj=tinshift +file=no_kv_ETRS89NO_NGO48_TIN.json");
+			Assert::IsTrue(res);
+
+			double xInput = 8.0, yInput = 60.0, zInput = 100.0;
+			double epoch = 2020.0;
+			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
+
+			for (int i = 0; i < noOfPoint; i++)
+			{
+				xInput += fRand(-0.000001, 0.000001);
+				yInput += fRand(-0.000001, 0.000001);
+				zInput += fRand(-0.000001, 0.000001);
+
+				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
+				Assert::IsTrue(res);
+			}
+			res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
+		}
+		TEST_METHOD(Transform_Deformation_Stresstest)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+			
+			bool res = wrapper.InitializeProj("+proj=deformation +t_epoch=2000.0 +grids=eur_nkg_nkgrf17vel.tif");
+			Assert::IsTrue(res);
+			
+			double xInput = 3582104.8458, yInput = 532590.0946, zInput = 5232755.0863;
+			double epoch = 2025.0;
+			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
+
+			for (int i = 0; i < noOfPoint; i++)
+			{
+				xInput += fRand(-0.001, 0.001);
+				yInput += fRand(-0.001, 0.001);
+				zInput += fRand(-0.001, 0.001);
+				epoch += fRand(-0.0001, 0.0001);
+
+				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
+				Assert::IsTrue(res);
+			}
+			res = wrapper.DestroyProj();
 			Assert::IsTrue(res);
 		}
 		TEST_METHOD(GetDatabasePath)
@@ -244,6 +436,14 @@ namespace ProjCppApiTest
 				Assert::IsTrue(res);
 			}
 			wrapper.DestroyProj();
+		}
+		TEST_METHOD(DestroyProj)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			bool res = wrapper.DestroyProj();
+
+			Assert::IsTrue(res);
 		}
 	};
 }
