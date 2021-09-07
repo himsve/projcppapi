@@ -10,12 +10,14 @@ namespace ProjCppApiTest
 {
 	TEST_CLASS(ProjCppApiTest)
 	{
-	public:
+	private:
+		int noOfPoint = 1000000;
 		double fRand(double fMin, double fMax)
 		{
 			double f = (double)rand() / RAND_MAX;
 			return fMin + f * (fMax - fMin);
 		}
+	public:
 		TEST_METHOD(ProjGetArea_EPSG7789_EPSG4936)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
@@ -86,30 +88,6 @@ namespace ProjCppApiTest
 
 			wrapper.DestroyProj();
 		}
-		TEST_METHOD(Transform_EPSG7789_EPSG4936_EPSG1352_STRESSTEST)
-		{
-			ProjCppWrapper::ProjCppWrapper wrapper;
-
-			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG:1352");
-			Assert::IsTrue(res);
-
-			// TRYS 2987993.64255 655946.42161 5578690.43270 2020.00
-			double xInput = 2987993.64255, yInput = 655946.42161, zInput = 5578690.43270;
-			double epoch = 2020.0;
-			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
-
-			for (int i = 0; i < 10000000; i++)
-			{
-				xInput += fRand(-0.0001, 0.0001);
-				yInput += fRand(-0.0001, 0.0001);
-				zInput += fRand(-0.0001, 0.0001);
-
-				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
-			
-				Assert::IsTrue(res);
-			}
-			wrapper.DestroyProj();
-		}
 		TEST_METHOD(Transform_EPSG7789_EPSG4936_EPSG1080)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
@@ -173,28 +151,6 @@ namespace ProjCppApiTest
 
 			wrapper.DestroyProj();
 		}
-		TEST_METHOD(Transform_EPSG4937_EPSG4273_STRESSTEST)
-		{
-			ProjCppWrapper::ProjCppWrapper wrapper;
-
-			bool res = wrapper.InitializeProj("EPSG:4937", "EPSG:4273", "");
-			Assert::IsTrue(res);
-			
-			double xInput = 10.0, yInput = 61.0, zInput = 0.0;
-			double epoch = 2020.0;
-			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
-
-			for (int i = 0; i < 10000000; i++)
-			{
-				xInput += fRand(-0.0000001, 0.0000001);				
-				yInput += fRand(-0.0000001, 0.0000001);
-				zInput += fRand(-0.0000001, 0.0000001);
-
-				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
-				Assert::IsTrue(res);
-			}
-			wrapper.DestroyProj();
-		}
 		TEST_METHOD(Transform_ProjString_LatLon_UTM32)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
@@ -212,6 +168,52 @@ namespace ProjCppApiTest
 			Assert::IsTrue(yOutput != HUGE_VAL);
 			Assert::IsTrue(zOutput != HUGE_VAL);
 
+			wrapper.DestroyProj();
+		}
+		TEST_METHOD(Transform_EPSG7789_EPSG4936_EPSG1352_STRESSTEST)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			bool res = wrapper.InitializeProj("EPSG:7789", "EPSG:4936", "EPSG:1352");
+			Assert::IsTrue(res);
+
+			// TRYS 2987993.64255 655946.42161 5578690.43270 2020.00
+			double xInput = 2987993.64255, yInput = 655946.42161, zInput = 5578690.43270;
+			double epoch = 2020.0;
+			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
+
+			for (int i = 0; i < noOfPoint; i++)
+			{
+				xInput += fRand(-0.0001, 0.0001);
+				yInput += fRand(-0.0001, 0.0001);
+				zInput += fRand(-0.0001, 0.0001);
+
+				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
+
+				Assert::IsTrue(res);
+			}
+			wrapper.DestroyProj();
+		}
+		TEST_METHOD(Transform_EPSG4937_EPSG4273_STRESSTEST)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			bool res = wrapper.InitializeProj("EPSG:4937", "EPSG:4273", "");
+			Assert::IsTrue(res);
+
+			double xInput = 10.0, yInput = 61.0, zInput = 0.0;
+			double epoch = 2020.0;
+			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
+
+			for (int i = 0; i < noOfPoint; i++)
+			{
+				xInput += fRand(-0.0000001, 0.0000001);
+				yInput += fRand(-0.0000001, 0.0000001);
+				zInput += fRand(-0.0000001, 0.0000001);
+
+				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
+				Assert::IsTrue(res);
+			}
 			wrapper.DestroyProj();
 		}
 		TEST_METHOD(DestroyProj)
