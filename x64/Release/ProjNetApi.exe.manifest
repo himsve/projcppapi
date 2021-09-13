@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProjCppApiNet.dll" size="4042240">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProjCppApiNet.dll" size="3874304">
       <assemblyIdentity name="ProjCppApiNet" version="1.1.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>MRGe+1/IYPADtyfADWyWAF+H+q1iX+PnPp2r9RF240Q=</dsig:DigestValue>
+        <dsig:DigestValue>QnMaN8M5NKo5LWL7jgTfa/sL03JELAMuTyxUzG3H0CQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -61,7 +61,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>0EXubJb264p8sx5Fp/ucm/3xjeyJv5Z4kqyzRsELatU=</dsig:DigestValue>
+        <dsig:DigestValue>yRuT6/ikinch3MBMojrmGcX3J1juWYTbpmYchgNFJbQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
