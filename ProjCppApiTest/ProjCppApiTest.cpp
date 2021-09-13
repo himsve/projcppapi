@@ -1,11 +1,14 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "ProjCppApi.h"
-
 #include "proj.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+/**
+* The tests can also fire from "Developer PowerShell for VS2019".
+* Type "VSTest.Console ProjCppApiTest" from the debug or release folder.
+*/
 namespace ProjCppApiTest
 {
 	TEST_CLASS(ProjCppApiTest)
