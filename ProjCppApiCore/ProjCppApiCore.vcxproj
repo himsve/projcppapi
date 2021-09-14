@@ -134,11 +134,11 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(USERPROFILE)\Miniconda3\Library\include;C:\Users\Administrator\source\repos\PROJ\include\proj</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PROJ_LIB)\..\..\..\Library\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>%(AdditionalDependencies);C:\Users\Administrator\source\repos\PROJ\build\lib\Release\proj.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(PROJ_LIB)\..\..\lib\proj.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

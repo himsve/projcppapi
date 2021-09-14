@@ -10,8 +10,21 @@ using namespace NS_PROJ::io;
 using namespace NS_PROJ::metadata;
 
 ProjCppWrapper::ProjCppWrapper::ProjCppWrapper()
-{
+{	
+	// Test på om PROJ_LIB funkar
+    char* libvar;
+
+    libvar = std::getenv("PROJ_LIB");
+    size_t requiredSize = 100;
+    auto res = getenv_s(&requiredSize, NULL, 0, "PROJ_LIB");
+	
+	if (libvar = getenv("PROJ_LIB"))
+	{
+		std::cout << "Your PATH is: " << libvar << '\n';
+	}
+
 	m_ctxt = proj_context_create();
+
 	proj_log_level(m_ctxt, PJ_LOG_LEVEL::PJ_LOG_NONE);
 }
 
