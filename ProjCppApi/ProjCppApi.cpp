@@ -12,17 +12,17 @@ using namespace NS_PROJ::metadata;
 ProjCppWrapper::ProjCppWrapper::ProjCppWrapper()
 {	
 	// Test på om PROJ_LIB funkar
-    char* libvar;
-
-    libvar = std::getenv("PROJ_LIB");
-    size_t requiredSize = 100;
-    auto res = getenv_s(&requiredSize, NULL, 0, "PROJ_LIB");
-	
-	if (libvar = getenv("PROJ_LIB"))
+	if (false)
 	{
-		std::cout << "Your PATH is: " << libvar << '\n';
-	}
+		char* libvar;
 
+		libvar = std::getenv("PROJ_LIB");
+		size_t requiredSize = 100;
+		auto res = getenv_s(&requiredSize, NULL, 0, "PROJ_LIB");
+
+		//std::cout << "PROJ_LIB is: " << res << '\n';
+	}
+	
 	m_ctxt = proj_context_create();
 
 	proj_log_level(m_ctxt, PJ_LOG_LEVEL::PJ_LOG_NONE);
@@ -149,6 +149,7 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(const char* strSourceCrs, co
 	return true;
 }
 
+DLL_API
 const char* ProjCppWrapper::ProjCppWrapper::GetProjDbPath()
 {
 	if (m_ctxt != nullptr)
@@ -156,18 +157,19 @@ const char* ProjCppWrapper::ProjCppWrapper::GetProjDbPath()
 		auto path = proj_context_get_database_path(m_ctxt);
 	
 		if (path != nullptr)
-	 		return path;		
+			return path;
 	}
 	return nullptr;
 }
 
-bool ProjCppWrapper::ProjCppWrapper::SetProjDbPath(std::string strProjPathCrs)
+bool ProjCppWrapper::ProjCppWrapper::SetProjDbPath(const char* strProjPath)
 {
-	m_projPath = strProjPathCrs.c_str();
+	m_projPath = strProjPath;
    
 	if (m_projPath != nullptr && m_ctxt != nullptr)
 	{
 		int res = proj_context_set_database_path(m_ctxt, m_projPath, nullptr, nullptr);
+
 		if (res == 0)
 			return false;
 
@@ -232,4 +234,42 @@ bool ProjCppWrapper::ProjCppWrapper::Transform(double xInput, double yInput, dou
 	zOutput = outputCoord.xyzt.z;
 
 	return true;
+}
+
+extern "C"  __declspec(dllexport) double Foo()
+{
+	return 1000;
+}
+
+extern "C" __declspec(dllexport) const char* GetProjDbPath()
+{ 
+	ProjCppWrapper::ProjCppWrapper m_ProjCppWrapper;
+	return m_ProjCppWrapper.GetProjDbPath();
+}
+
+extern "C" __declspec(dllexport) bool SetProjDbPath(const char* dbPath)
+{
+	ProjCppWrapper::ProjCppWrapper m_ProjCppWrapper;
+
+	std::cout << "Set PATH is: " << dbPath << '\n';
+
+	return m_ProjCppWrapper.SetProjDbPath(dbPath);
+}
+
+extern "C" __declspec(dllexport) void ProjTransform(
+	const char* strSourceCrs, const char* strTargetCrs,
+	double x, double y, double z, double e,
+	double& xOutput, double& yOutput, double& zOutput)
+{
+	ProjCppWrapper::ProjCppWrapper m_ProjCppWrapper;
+
+	if (!m_ProjCppWrapper.InitializeProj(strSourceCrs, strTargetCrs))
+		return;
+
+	double xOut = 0.0, yOut = 0.0, zOut = 0.0;
+	m_ProjCppWrapper.Transform(x, y, z, e, xOut, yOut, zOut);
+
+	xOutput = xOut;
+	yOutput = yOut;
+	zOutput = zOut;
 }

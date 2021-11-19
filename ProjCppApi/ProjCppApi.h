@@ -19,7 +19,7 @@
 using namespace std;
 
 namespace ProjCppWrapper
-{	
+{
 	class DLL_API ProjCppWrapper
 	{
 	private:
@@ -39,8 +39,8 @@ namespace ProjCppWrapper
 		bool DestroyProj();
 		bool InitializeProj(std::string strProj);
 		bool InitializeProj(const char* strSourceCrs, const char* strTargetCrs, const char* strAuthorityArea = nullptr);
-		const char* GetProjDbPath();
-		bool SetProjDbPath(std::string strProjPathCrs);
+	    const char* GetProjDbPath();
+		bool SetProjDbPath(const char* strProjPath);
 		bool Transform(double xInput, double yInput, double zInput, double epoch, double &xOutput, double &yOutput, double &zOutput);
-	};
+	};	
 }
