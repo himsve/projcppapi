@@ -21,6 +21,12 @@ namespace ProjNetApi
 
                 Console.WriteLine($"GetPath: {getPath}");
 
+                var epsgList = o.GetAvailableEpsgCodes();
+
+                Console.WriteLine("Available Crs EPSG-codes: ");
+                foreach (var epsg in epsgList)
+                    Console.WriteLine(epsg);
+
                 Console.WriteLine("Enter source EPSG code: ");
                 string sourceEpsg = Console.ReadLine();
 

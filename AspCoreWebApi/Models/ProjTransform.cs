@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspCoreWebApi.Models
 {
+    //[Keyless]
     public class ProjTransform
     {
-        public long Id { get; set; } = 0;
+        public int Id {get;set;}
+        public int EpsgCodeSource { get; set; } = 0;
+        public int EpsgCodeTarget { get; set; } = 0;
+        public int EpsgCodeArea { get; set; } = 0;
         public double XInput { get; set; }
         public double YInput { get; set; }
         public double ZInput { get; set; }

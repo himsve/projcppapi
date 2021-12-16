@@ -9,6 +9,7 @@
 #include <msclr/marshal_cppstd.h>
 
 using namespace System;
+using namespace System::Runtime::InteropServices;
 using namespace System::Runtime::CompilerServices;
 using namespace msclr::interop;
 
@@ -34,6 +35,18 @@ namespace ProjCppApiCore
 			const char* cProjDbPath = p->GetProjDbPath();
 
 			return gcnew String(cProjDbPath);
+		}
+		cli::array<System::Int32>^ GetAvailableEpsgCodes()
+		{
+			auto epsgCodes = p->GetAvailableEpsgCodes();
+			const int SIZE = epsgCodes.size();
+			cli::array<int>^ tempArr = gcnew cli::array<int>(SIZE);
+
+			for (int i = 0; i < SIZE; i++)
+			{
+				tempArr[i] = epsgCodes[i];
+			}
+			return tempArr;			  
 		}
 		bool SetProjDbPath(System::String^ strProjDbPath)
 		{

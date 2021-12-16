@@ -15,28 +15,44 @@ namespace AspCoreWebApi.Models
         {
             _projAppApiCore ??= new ProjCppApiCore.ProjCppApiCore();
         }
-        
-        public DbSet<ProjInit> DbProjInit { get; set; }
+
+        public DbSet<ProjDatum> DbProjDatum { get; set; }
         public DbSet<ProjTransform> DbProjTransform { get; set; }
 
         // Testing
         public ProjCppApiCore.ProjCppApiCore ProjObject => _projAppApiCore;
+                
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProjDatum>(entity =>
+            {
+                if (!Database.IsInMemory())
+                {
+                    entity.HasNoKey();
+                    entity.Ignore(e => e.EpsgCode);
+                }
+                else
+                {
+                    entity.HasKey(e => e.EpsgCode);
+                }
+            });
+            base.OnModelCreating(modelBuilder);
+        }
     }
 
-    public class ProjInitDTO
+    [Keyless]
+    public class ProjDatumDTO
     {
-        public int Id { get; set; } = 1;
-        public string EpsgAutoritySource { get; set; } = "EPSG";
-        public string EpsgCodeSource { get; set; } = "";
-        public string EpsgAutorityTarget { get; set; } = "EPSG";
-        public string EpsgCodeTarget { get; set; } = "";
-        public string EpsgAutorityArea { get; set; } = "EPSG";
-        public string EpsgCodeArea { get; set; } = "";
+        public int EpsgCode { get; set; } = 0;
     }
 
+    //[Keyless]
     public class ProjTransformDTO
     {
-        public long Id { get; set; } = 0;
+        public int Id { get; set; } = 0;
+        public int EpsgCodeSource { get; set; } = 0;
+        public int EpsgCodeTarget { get; set; } = 0;
+        public int EpsgCodeArea { get; set; } = 0;
         public double XInput { get; set; }
         public double YInput { get; set; }
         public double ZInput { get; set; }

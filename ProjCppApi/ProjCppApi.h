@@ -12,6 +12,7 @@
 #include <sstream>
 
 #include <proj.h>
+//#include "proj/common.hpp"
 #include "proj/io.hpp"
 #include "proj/metadata.hpp"
 #include "proj/nn.hpp"
@@ -32,10 +33,13 @@ namespace ProjCppWrapper
 		PJ *m_transformation = nullptr;
 
 		PJ_AREA* m_pj_area = nullptr;
+		vector<int>* m_availableEpsgCodes = nullptr;
 	public:
 		ProjCppWrapper();
-
+		~ProjCppWrapper();
+		
 		const char* ProjGetArea(std::string strSourceCrs, std::string strTargetCrs);
+		vector<int> GetAvailableEpsgCodes();
 		bool DestroyProj();
 		bool InitializeProj(std::string strProj);
 		bool InitializeProj(const char* strSourceCrs, const char* strTargetCrs, const char* strAuthorityArea = nullptr);

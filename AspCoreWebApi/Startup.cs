@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AspCoreWebApi.Models;
+using System.Text.Json.Serialization;
 
 namespace AspCoreWebApi
 {
@@ -29,12 +30,12 @@ namespace AspCoreWebApi
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            //services.AddDbContext<WeatherForecastContext>(opt => opt.UseInMemoryDatabase(nameof(WeatherForecastContext.DbWeatherForeCasts)));
-            services.AddDbContext<ProjContexts>(opt => opt.UseInMemoryDatabase(nameof(ProjContexts.DbProjInit)));
+        {            
+            services.AddDbContext<ProjContexts>(opt => opt.UseInMemoryDatabase(nameof(ProjContexts.DbProjDatum)));
             services.AddDbContext<ProjContexts>(opt => opt.UseInMemoryDatabase(nameof(ProjContexts.DbProjTransform)));
             
-            services.AddControllers();
+            services.AddControllers();            
+            //services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
             services.AddSwaggerGen(c =>
             {
@@ -43,6 +44,7 @@ namespace AspCoreWebApi
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
                 c.IncludeXmlComments(xmlPath);
+                //c.SchemaFilter<EnumTypesSchemaFilter>(xmlPath);
             });
         }
 
@@ -62,6 +64,8 @@ namespace AspCoreWebApi
             {
                 endpoints.MapControllers();
             });
+            
+            // app.UseSwagger(o => o.SerializeAsV2 = true);
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

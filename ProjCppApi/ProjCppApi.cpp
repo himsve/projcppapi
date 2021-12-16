@@ -28,6 +28,58 @@ ProjCppWrapper::ProjCppWrapper::ProjCppWrapper()
 	proj_log_level(m_ctxt, PJ_LOG_LEVEL::PJ_LOG_NONE);
 }
 
+ProjCppWrapper::ProjCppWrapper::~ProjCppWrapper()
+{
+	if (m_availableEpsgCodes != nullptr)
+	{
+		m_availableEpsgCodes->clear();
+		delete m_availableEpsgCodes;
+	}
+}
+
+vector<int> ProjCppWrapper::ProjCppWrapper::GetAvailableEpsgCodes()
+{
+	if (m_availableEpsgCodes != nullptr)
+		return *m_availableEpsgCodes;
+
+	m_availableEpsgCodes = new vector<int>();
+	
+	if (m_ctxt != nullptr)
+	{
+		PROJ_CRS_LIST_PARAMETERS crsParam;
+
+		crsParam.bbox_valid = true;
+		crsParam.east_lon_degree = 30.0;
+		crsParam.north_lat_degree = 72.0;
+		crsParam.west_lon_degree = 5.0;
+		crsParam.south_lat_degree = 57.0;
+
+		crsParam.crs_area_of_use_contains_bbox = 1;
+		crsParam.celestial_body_name = "Earth";
+
+		const PJ_TYPE types[] = {
+			PJ_TYPE_VERTICAL_CRS,
+			PJ_TYPE_GEOCENTRIC_CRS,
+			PJ_TYPE_GEOGRAPHIC_3D_CRS,
+			//PJ_TYPE_GEOGRAPHIC_2D_CRS,
+			PJ_TYPE_PROJECTED_CRS
+		};
+
+		crsParam.types = types;
+		crsParam.typesCount = 4;
+
+		int result_count = 0;
+		auto listCrs2 = proj_get_crs_info_list_from_database(m_ctxt, "EPSG", &crsParam, &result_count);		
+
+		for (int i = 0; i < result_count; i++)
+		{
+			auto code = listCrs2[i]->code;
+			m_availableEpsgCodes->push_back(atoi(code));
+		}
+	}
+	return *m_availableEpsgCodes;
+}
+
 const char* ProjCppWrapper::ProjCppWrapper::ProjGetArea(std::string strSourceCrs, std::string strTargetCrs)
 {
 	if (!strSourceCrs.empty())
@@ -155,7 +207,7 @@ const char* ProjCppWrapper::ProjCppWrapper::GetProjDbPath()
 	if (m_ctxt != nullptr)
 	{
 		auto path = proj_context_get_database_path(m_ctxt);
-	
+
 		if (path != nullptr)
 			return path;
 	}
@@ -165,7 +217,7 @@ const char* ProjCppWrapper::ProjCppWrapper::GetProjDbPath()
 bool ProjCppWrapper::ProjCppWrapper::SetProjDbPath(const char* strProjPath)
 {
 	m_projPath = strProjPath;
-   
+
 	if (m_projPath != nullptr && m_ctxt != nullptr)
 	{
 		int res = proj_context_set_database_path(m_ctxt, m_projPath, nullptr, nullptr);
