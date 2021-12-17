@@ -19,9 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <OpenApiReference Include="OpenAPIs\openapi.json" CodeGenerator="NSwagCSharp" Namespace="OpenAPI">
-      <SourceUri>https://ws.geonorge.no/transformering/v1/openapi.json</SourceUri>
-    </OpenApiReference>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>
