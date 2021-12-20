@@ -4,7 +4,7 @@
 // </auto-generated>
 //----------------------
 
-namespace OpenAPI.OpenAPI
+namespace OpenApi.OpenApiV1
 {
     #pragma warning disable
 
