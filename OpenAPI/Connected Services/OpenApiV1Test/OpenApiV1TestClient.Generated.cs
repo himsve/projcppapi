@@ -4,14 +4,15 @@
 // </auto-generated>
 //----------------------
 
-namespace OpenApi.OpenApiV1
+namespace OpenApi.OpenApiV1Test
 {
     #pragma warning disable
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "12.0.15.0 (NJsonSchema v9.13.22.0 (Newtonsoft.Json v12.0.0.2))")]
     public partial class TransformerClient 
     {
-        private string _baseUrl = "https://ws.geonorge.no/transformering/v1";
+        private string _baseUrl = "https://wstest.geonorge.no/transformering/v1";
+
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
     
@@ -42,24 +43,28 @@ namespace OpenApi.OpenApiV1
         /// <summary>Transformer</summary>
         /// <param name="x">Lengdegrad / øst / X</param>
         /// <param name="y">Breddegrad / nord / Y</param>
+        /// <param name="z">Høyde / Z</param>
+        /// <param name="t">Tid / Epoke / T</param>
         /// <param name="fra">Fra-EPSG-kode</param>
         /// <param name="til">Til-EPSG-kode</param>
         /// <returns>Successful Response</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<TransformResult> GetAsync(double x, double y, Epsg fra, Epsg til)
+        public System.Threading.Tasks.Task<TransformResult> GetAsync(double x, double y, double? z, double? t, Epsg fra, Epsg til)
         {
-            return GetAsync(x, y, fra, til, System.Threading.CancellationToken.None);
+            return GetAsync(x, y, z, t, fra, til, System.Threading.CancellationToken.None);
         }
     
         /// <summary>Transformer</summary>
         /// <param name="x">Lengdegrad / øst / X</param>
         /// <param name="y">Breddegrad / nord / Y</param>
+        /// <param name="z">Høyde / Z</param>
+        /// <param name="t">Tid / Epoke / T</param>
         /// <param name="fra">Fra-EPSG-kode</param>
         /// <param name="til">Til-EPSG-kode</param>
         /// <returns>Successful Response</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public async System.Threading.Tasks.Task<TransformResult> GetAsync(double x, double y, Epsg fra, Epsg til, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<TransformResult> GetAsync(double x, double y, double? z, double? t, Epsg fra, Epsg til, System.Threading.CancellationToken cancellationToken)
         {
             if (x == null)
                 throw new System.ArgumentNullException("x");
@@ -77,6 +82,14 @@ namespace OpenApi.OpenApiV1
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/transformer?");
             urlBuilder_.Append("x=").Append(System.Uri.EscapeDataString(ConvertToString(x, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Append("y=").Append(System.Uri.EscapeDataString(ConvertToString(y, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            if (z != null) 
+            {
+                urlBuilder_.Append("z=").Append(System.Uri.EscapeDataString(ConvertToString(z, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (t != null) 
+            {
+                urlBuilder_.Append("t=").Append(System.Uri.EscapeDataString(ConvertToString(t, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
             urlBuilder_.Append("fra=").Append(System.Uri.EscapeDataString(ConvertToString(fra, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Append("til=").Append(System.Uri.EscapeDataString(ConvertToString(til, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
@@ -347,152 +360,374 @@ namespace OpenApi.OpenApiV1
         [System.Runtime.Serialization.EnumMember(Value = @"4258")]
         _4258 = 0,
     
+        [System.Runtime.Serialization.EnumMember(Value = @"4937")]
+        _4937 = 1,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5942")]
+        _5942 = 2,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6144")]
+        _6144 = 3,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"4936")]
+        _4936 = 4,
+    
         [System.Runtime.Serialization.EnumMember(Value = @"25831")]
-        _25831 = 1,
+        _25831 = 5,
     
         [System.Runtime.Serialization.EnumMember(Value = @"25832")]
-        _25832 = 2,
+        _25832 = 6,
     
         [System.Runtime.Serialization.EnumMember(Value = @"25833")]
-        _25833 = 3,
+        _25833 = 7,
     
         [System.Runtime.Serialization.EnumMember(Value = @"25834")]
-        _25834 = 4,
+        _25834 = 8,
     
         [System.Runtime.Serialization.EnumMember(Value = @"25835")]
-        _25835 = 5,
+        _25835 = 9,
     
         [System.Runtime.Serialization.EnumMember(Value = @"25836")]
-        _25836 = 6,
+        _25836 = 10,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6171")]
+        _6171 = 11,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6172")]
+        _6172 = 12,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6173")]
+        _6173 = 13,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6174")]
+        _6174 = 14,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6175")]
+        _6175 = 15,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6176")]
+        _6176 = 16,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5971")]
+        _5971 = 17,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5972")]
+        _5972 = 18,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5973")]
+        _5973 = 19,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5974")]
+        _5974 = 20,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5975")]
+        _5975 = 21,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5976")]
+        _5976 = 22,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5105")]
-        _5105 = 7,
+        _5105 = 23,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5106")]
-        _5106 = 8,
+        _5106 = 24,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5107")]
-        _5107 = 9,
+        _5107 = 25,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5108")]
-        _5108 = 10,
+        _5108 = 26,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5109")]
-        _5109 = 11,
+        _5109 = 27,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5110")]
-        _5110 = 12,
+        _5110 = 28,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5111")]
-        _5111 = 13,
+        _5111 = 29,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5112")]
-        _5112 = 14,
+        _5112 = 30,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5113")]
-        _5113 = 15,
+        _5113 = 31,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5114")]
-        _5114 = 16,
+        _5114 = 32,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5115")]
-        _5115 = 17,
+        _5115 = 33,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5116")]
-        _5116 = 18,
+        _5116 = 34,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5117")]
-        _5117 = 19,
+        _5117 = 35,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5118")]
-        _5118 = 20,
+        _5118 = 36,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5119")]
-        _5119 = 21,
+        _5119 = 37,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5120")]
-        _5120 = 22,
+        _5120 = 38,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5121")]
-        _5121 = 23,
+        _5121 = 39,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5122")]
-        _5122 = 24,
+        _5122 = 40,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5123")]
-        _5123 = 25,
+        _5123 = 41,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5124")]
-        _5124 = 26,
+        _5124 = 42,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5125")]
-        _5125 = 27,
+        _5125 = 43,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5126")]
-        _5126 = 28,
+        _5126 = 44,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5127")]
-        _5127 = 29,
+        _5127 = 45,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5128")]
-        _5128 = 30,
+        _5128 = 46,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5129")]
-        _5129 = 31,
+        _5129 = 47,
     
         [System.Runtime.Serialization.EnumMember(Value = @"5130")]
-        _5130 = 32,
+        _5130 = 48,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6145")]
+        _6145 = 49,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6146")]
+        _6146 = 50,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6147")]
+        _6147 = 51,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6148")]
+        _6148 = 52,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6149")]
+        _6149 = 53,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6150")]
+        _6150 = 54,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6151")]
+        _6151 = 55,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6152")]
+        _6152 = 56,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6153")]
+        _6153 = 57,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6154")]
+        _6154 = 58,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6155")]
+        _6155 = 59,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6156")]
+        _6156 = 60,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6157")]
+        _6157 = 61,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6158")]
+        _6158 = 62,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6159")]
+        _6159 = 63,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6160")]
+        _6160 = 64,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6161")]
+        _6161 = 65,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6162")]
+        _6162 = 66,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6163")]
+        _6163 = 67,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6164")]
+        _6164 = 68,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6165")]
+        _6165 = 69,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6166")]
+        _6166 = 70,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6167")]
+        _6167 = 71,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6168")]
+        _6168 = 72,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6169")]
+        _6169 = 73,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"6170")]
+        _6170 = 74,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5945")]
+        _5945 = 75,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5946")]
+        _5946 = 76,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5947")]
+        _5947 = 77,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5948")]
+        _5948 = 78,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5949")]
+        _5949 = 79,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5950")]
+        _5950 = 80,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5951")]
+        _5951 = 81,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5952")]
+        _5952 = 82,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5953")]
+        _5953 = 83,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5954")]
+        _5954 = 84,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5955")]
+        _5955 = 85,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5956")]
+        _5956 = 86,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5957")]
+        _5957 = 87,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5958")]
+        _5958 = 88,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5959")]
+        _5959 = 89,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5960")]
+        _5960 = 90,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5961")]
+        _5961 = 91,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5962")]
+        _5962 = 92,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5963")]
+        _5963 = 93,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5964")]
+        _5964 = 94,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5965")]
+        _5965 = 95,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5966")]
+        _5966 = 96,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5967")]
+        _5967 = 97,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5968")]
+        _5968 = 98,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5969")]
+        _5969 = 99,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5970")]
+        _5970 = 100,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5941")]
+        _5941 = 101,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"5776")]
+        _5776 = 102,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"9672")]
+        _9672 = 103,
     
         [System.Runtime.Serialization.EnumMember(Value = @"4273")]
-        _4273 = 33,
+        _4273 = 104,
     
         [System.Runtime.Serialization.EnumMember(Value = @"27391")]
-        _27391 = 34,
+        _27391 = 105,
     
         [System.Runtime.Serialization.EnumMember(Value = @"27392")]
-        _27392 = 35,
+        _27392 = 106,
     
         [System.Runtime.Serialization.EnumMember(Value = @"27393")]
-        _27393 = 36,
+        _27393 = 107,
     
         [System.Runtime.Serialization.EnumMember(Value = @"27394")]
-        _27394 = 37,
+        _27394 = 108,
     
         [System.Runtime.Serialization.EnumMember(Value = @"27395")]
-        _27395 = 38,
+        _27395 = 109,
     
         [System.Runtime.Serialization.EnumMember(Value = @"27396")]
-        _27396 = 39,
+        _27396 = 110,
     
         [System.Runtime.Serialization.EnumMember(Value = @"27397")]
-        _27397 = 40,
+        _27397 = 111,
     
         [System.Runtime.Serialization.EnumMember(Value = @"27398")]
-        _27398 = 41,
+        _27398 = 112,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"9000")]
+        _9000 = 113,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"7912")]
+        _7912 = 114,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"7789")]
+        _7789 = 115,
     
         [System.Runtime.Serialization.EnumMember(Value = @"4230")]
-        _4230 = 42,
+        _4230 = 116,
     
         [System.Runtime.Serialization.EnumMember(Value = @"23031")]
-        _23031 = 43,
+        _23031 = 117,
     
         [System.Runtime.Serialization.EnumMember(Value = @"23032")]
-        _23032 = 44,
+        _23032 = 118,
     
         [System.Runtime.Serialization.EnumMember(Value = @"23033")]
-        _23033 = 45,
+        _23033 = 119,
     
         [System.Runtime.Serialization.EnumMember(Value = @"23034")]
-        _23034 = 46,
+        _23034 = 120,
     
         [System.Runtime.Serialization.EnumMember(Value = @"23035")]
-        _23035 = 47,
+        _23035 = 121,
     
         [System.Runtime.Serialization.EnumMember(Value = @"23036")]
-        _23036 = 48,
+        _23036 = 122,
     
         [System.Runtime.Serialization.EnumMember(Value = @"4326")]
-        _4326 = 49,
+        _4326 = 123,
     
     }
     
@@ -547,6 +782,9 @@ namespace OpenApi.OpenApiV1
     
         [Newtonsoft.Json.JsonProperty("y", Required = Newtonsoft.Json.Required.Always)]
         public double Y { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("z", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double Z { get; set; }
     
         public string ToJson() 
         {
