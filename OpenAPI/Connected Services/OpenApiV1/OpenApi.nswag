@@ -3,8 +3,8 @@
   "defaultVariables": null,
   "swaggerGenerator": {
     "fromSwagger": {
-      "url": "https://wstest.geonorge.no/transformering/v1/openapi.json",
-      "output": "OpenApiV1Test.nswag.json"
+      "url": "https://ws.geonorge.no/transformering/v1/openapi.json",
+      "output": "OpenApi.nswag.json"
     }
   },
   "codeGenerators": {
@@ -51,7 +51,7 @@
       "wrapResponseMethods": [],
       "generateResponseClasses": true,
       "responseClass": "SwaggerResponse",
-      "namespace": "OpenApi.OpenApiV1Test",
+      "namespace": "OpenApi.OpenApi",
       "requiredPropertiesMustBeDefined": true,
       "dateType": "System.DateTimeOffset",
       "jsonConverters": null,
@@ -80,7 +80,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "OpenApiV1TestClient.Generated.cs"
+      "output": "OpenApiClient.Generated.cs"
     }
   }
 }

@@ -34,7 +34,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspCoreWebApp", "AspCoreWeb
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "ProjVb", "ProjVb\ProjVb.vbproj", "{037D9BDA-72F6-40C3-9187-90492569131F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenApi", "OpenAPI\OpenApi.csproj", "{4D846114-EA77-4228-9D9C-40E9E767758A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenApi", "OpenApi\OpenApi.csproj", "{4D846114-EA77-4228-9D9C-40E9E767758A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
