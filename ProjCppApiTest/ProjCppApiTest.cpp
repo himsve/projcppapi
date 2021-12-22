@@ -211,6 +211,29 @@ namespace ProjCppApiTest
 			res = wrapper.DestroyProj();
 			Assert::IsTrue(res);
 		}
+		TEST_METHOD(Transform_EPSG4258_EPSG25832_Stresstest)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			bool res = wrapper.InitializeProj("EPSG:4258", "EPSG:25832", "");
+			Assert::IsTrue(res);
+
+			double xInput = 10.0, yInput = 61.0, zInput = 0.0;
+			double epoch = 2020.0;
+			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
+
+			for (int i = 0; i < noOfPoint; i++)
+			{
+				xInput += fRand(-0.0000001, 0.0000001);
+				yInput += fRand(-0.0000001, 0.0000001);
+				zInput += fRand(-0.0000001, 0.0000001);
+
+				res = wrapper.Transform(xInput, yInput, zInput, epoch, xOutput, yOutput, zOutput);
+				Assert::IsTrue(res);
+			}
+			res = wrapper.DestroyProj();
+			Assert::IsTrue(res);
+		}
 		TEST_METHOD(Transform_Utm_To_LatLon_Stresstest)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
@@ -330,7 +353,7 @@ namespace ProjCppApiTest
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
 
-			bool res = wrapper.InitializeProj("+proj=hgridshift +grids=no_kv_ETRS89_ED50.tif");
+			bool res = wrapper.InitializeProj("+proj=hgridshift +grids=no_kv_ED50_ETRS89.tif");
 			Assert::IsTrue(res);
 
 			double xInput = 8.0, yInput = 60.0, zInput = 100.0;
