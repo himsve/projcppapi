@@ -55,7 +55,7 @@ namespace ProjCoreApi
                         while (Console.ReadKey(true).Key == ConsoleKey.Escape)
                         {
                             return;
-                        }                     
+                        }
 
                         var inputCoord = Console.ReadLine().Split(new char[] { ' ', ';', ',' }, StringSplitOptions.RemoveEmptyEntries);
 

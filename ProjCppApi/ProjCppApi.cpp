@@ -80,6 +80,152 @@ vector<int> ProjCppWrapper::ProjCppWrapper::GetAvailableEpsgCodes()
 	return *m_availableEpsgCodes;
 }
 
+const char* ProjCppWrapper::ProjCppWrapper::ProjGetEllps(std::string strSourceCrs)
+{
+	if (!strSourceCrs.empty())
+	{
+		m_src = proj_create(nullptr, strSourceCrs.c_str());
+
+		if (m_src == nullptr)
+			return nullptr;
+	}
+	else
+		return nullptr;
+
+	auto ellipsoid = proj_get_ellipsoid(m_ctxt, m_src);
+	  
+	auto ellipsoid_name = proj_get_name(ellipsoid);
+
+	return ellipsoid_name;
+}
+
+bool ProjCppWrapper::ProjCppWrapper::ProjGetEllpsParams(std::string strSourceCrs, double& aOut, double& bOut, double& fOut)
+{
+	if (!strSourceCrs.empty())
+	{
+		m_src = proj_create(nullptr, strSourceCrs.c_str());
+
+		if (m_src == nullptr)
+			return false;
+	}
+	else
+		return false;
+
+	auto ellipsoid = proj_get_ellipsoid(m_ctxt, m_src);
+
+	double a = 0.0;
+	double b = 0.0;
+	double inv_flattening = 0.0;
+
+	int res = proj_ellipsoid_get_parameters(m_ctxt, ellipsoid, &a, &b, nullptr, &inv_flattening);	  
+
+	if (res != 1)
+		return false;
+
+	aOut = a;
+	bOut = b;
+	fOut = inv_flattening;
+
+	return true;
+}
+
+bool ProjCppWrapper::ProjCppWrapper::ProjGetMeridianParams(std::string strSourceCrs, double &dLongitude, double &dLlongitudeUnit, const char* &strLongitudeUnitName)
+{
+	if (!strSourceCrs.empty())
+	{
+		m_src = proj_create(nullptr, strSourceCrs.c_str());
+
+		if (m_src == nullptr)
+			return false;
+	}
+	else
+		return false;
+
+	auto meridian = proj_get_prime_meridian(m_ctxt, m_src);
+
+	double longitude = -1;
+	double longitudeUnit = 0;
+	const char* longitudeUnitName = nullptr;
+
+	int res = proj_prime_meridian_get_parameters(m_ctxt, meridian, &longitude, &longitudeUnit, &longitudeUnitName);
+
+	if (res != 1)
+		return false;
+
+	dLlongitudeUnit = longitude;
+	dLongitude = longitudeUnit;
+	strLongitudeUnitName = longitudeUnitName;
+
+	return true;
+}
+
+bool ProjCppWrapper::ProjCppWrapper::ProjGetProjectionParams(
+	std::string strSourceCrs,
+	double& dFalseEasting,
+	double& dScaleFactor,
+	double& dLongitudeOfNaturalOrigin)
+{
+	if (!strSourceCrs.empty())
+	{
+		m_src = proj_create(nullptr, strSourceCrs.c_str());
+
+		if (m_src == nullptr)
+			return false;
+	}
+	else
+		return false;
+
+	auto conv = proj_crs_get_coordoperation(m_ctxt, m_src);
+
+	const char* methodName = nullptr;
+	const char* methodAuthorityName = nullptr;
+	const char* methodCode = nullptr;
+
+	auto res = proj_coordoperation_get_method_info(m_ctxt, conv, &methodName, &methodAuthorityName, &methodCode);
+	
+	if (res != 1)
+		return false;
+
+	const char* name = nullptr;
+	const char* nameAuthorityName = nullptr;
+	const char* nameCode = nullptr;
+
+	double falseEasting = 0.0;
+	double scaleFactor = 0.0;
+	double longitudeOfNaturalOrigin = 0.0;
+
+	const char* valueString = nullptr;
+	double valueUnitConvFactor = 0;
+	const char* valueUnitName = nullptr;
+	const char* unitAuthName = nullptr;
+	const char* unitCode = nullptr;
+	const char* unitCategory = nullptr;
+
+	if (proj_coordoperation_get_param(
+		m_ctxt, conv, 3, &name, &nameAuthorityName, &nameCode, &falseEasting,
+		&valueString, &valueUnitConvFactor, &valueUnitName, &unitAuthName,
+		&unitCode, &unitCategory) != 1)
+		return false;	
+	 
+	if (proj_coordoperation_get_param(
+		m_ctxt, conv, 2, &name, &nameAuthorityName, &nameCode, &scaleFactor,
+		&valueString, &valueUnitConvFactor, &valueUnitName, &unitAuthName,
+		&unitCode, &unitCategory) != 1)
+		return false;
+
+	if (proj_coordoperation_get_param(
+		m_ctxt, conv, 1, &name, &nameAuthorityName, &nameCode, &longitudeOfNaturalOrigin,
+		&valueString, &valueUnitConvFactor, &valueUnitName, &unitAuthName,
+		&unitCode, &unitCategory) != 1)
+		return false;
+
+	dFalseEasting = falseEasting;
+	dScaleFactor = scaleFactor;
+	dLongitudeOfNaturalOrigin = longitudeOfNaturalOrigin;
+
+	return true;
+}
+
 const char* ProjCppWrapper::ProjCppWrapper::ProjGetArea(std::string strSourceCrs, std::string strTargetCrs)
 {
 	if (!strSourceCrs.empty())

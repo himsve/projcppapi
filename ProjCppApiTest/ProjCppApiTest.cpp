@@ -21,6 +21,54 @@ namespace ProjCppApiTest
 			return fMin + f * (fMax - fMin);
 		}
 	public:
+		TEST_METHOD(ProjGetEllipsName)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			auto res = wrapper.ProjGetEllps("EPSG:4258");
+
+			Assert::IsNotNull(res);
+		}
+		TEST_METHOD(ProjGetEllipsParams)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			double a = 0.0;
+			double b = 0.0;
+			double f = 0.0;
+
+			auto res = wrapper.ProjGetEllpsParams("EPSG:4258", a, b, f);
+
+			Assert::IsTrue(res);
+
+			Assert::IsTrue(a != 0.0);
+			Assert::IsTrue(b != 0.0);
+			Assert::IsTrue(f != 0.0);
+		}
+		TEST_METHOD(ProjGetMeridianParams)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			double longitude = 0.0, longitudeUnit = 0.0;
+			const char* longitudeUnitName = nullptr;
+
+			auto res = wrapper.ProjGetMeridianParams("EPSG:25833", longitude, longitudeUnit, longitudeUnitName);
+			
+			Assert::IsTrue(res);
+
+			Assert::IsTrue(longitude != 0.0);
+			Assert::IsNotNull(longitudeUnitName);
+		}
+		TEST_METHOD(ProjGetProjectionParams)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			double falseEasting = 0.0, dScaleFactor = 0.0, dLongitudeOfNaturalOrigin = 0.0;
+
+			auto res = wrapper.ProjGetProjectionParams("EPSG:25833", falseEasting, dScaleFactor, dLongitudeOfNaturalOrigin);
+
+			Assert::IsTrue(res);
+		}
 		TEST_METHOD(ProjGetArea_EPSG7789_EPSG4936)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;

@@ -39,6 +39,18 @@ namespace ProjCppWrapper
 		~ProjCppWrapper();
 		
 		const char* ProjGetArea(std::string strSourceCrs, std::string strTargetCrs);
+		const char* ProjGetEllps(std::string strSourceCrs);
+		bool ProjGetEllpsParams(std::string strSourceCrs, double& aOut, double& bOut, double& fOut);
+		bool ProjGetMeridianParams(
+			std::string strSourceCrs,
+			double& dLongitude,
+			double& dLlongitudeUnit,
+			const char*& strLongitudeUnitName);
+		bool ProjGetProjectionParams(
+			std::string strSourceCrs,
+			double& dFalseEasting,
+			double& dScaleFactor,
+			double& dLongitudeOfNaturalOrigin);
 		vector<int> GetAvailableEpsgCodes();
 		bool DestroyProj();
 		bool InitializeProj(std::string strProj);
