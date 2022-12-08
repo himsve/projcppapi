@@ -3,7 +3,7 @@
 #include "pch.h"
 #include "ProjCppApi.h"
 #include <iostream>
-#include <sqlite3.h>
+#include "sqlite3.h"
 #include <cstdlib>
 
 using namespace NS_PROJ::io;

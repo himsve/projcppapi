@@ -5,6 +5,7 @@
 #include <proj.h>
 #include <proj/io.hpp>
 #include <proj/metadata.hpp>
+#include <proj/nn.hpp>
 #include <msclr/marshal.h>
 #include <msclr/marshal_cppstd.h>
 

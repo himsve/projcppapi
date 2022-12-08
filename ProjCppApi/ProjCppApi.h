@@ -10,9 +10,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
-
 #include <proj.h>
-//#include "proj/common.hpp"
 #include "proj/io.hpp"
 #include "proj/metadata.hpp"
 #include "proj/nn.hpp"
