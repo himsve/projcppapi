@@ -18,7 +18,7 @@ namespace AspCoreWebApi.Models
     }
 
     public static class DatumListClass
-    {   
+    {
         public static List<string> DatumList
         {
             get
