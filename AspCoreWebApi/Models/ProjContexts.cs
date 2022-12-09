@@ -20,7 +20,10 @@ namespace AspCoreWebApi.Models
         public DbSet<ProjTransform> DbProjTransform { get; set; }
 
         // Testing
-        public ProjCppApiCore.ProjCppApiCore ProjObject => _projAppApiCore;
+        public ProjCppApiCore.ProjCppApiCore ProjObject
+        {
+            get => _projAppApiCore ??= new ProjCppApiCore.ProjCppApiCore();
+        }   
                 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

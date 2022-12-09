@@ -11,7 +11,7 @@ using namespace System::Security::Permissions;
 [assembly:AssemblyConfigurationAttribute(L"")];
 [assembly:AssemblyCompanyAttribute(L"")];
 [assembly:AssemblyProductAttribute(L"ProjCppApiCore")];
-[assembly:AssemblyCopyrightAttribute(L"Copyright (c) Kartverket 2021")];
+[assembly:AssemblyCopyrightAttribute(L"Copyright (c) Kartverket 2022")];
 [assembly:AssemblyTrademarkAttribute(L"")];
 [assembly:AssemblyCultureAttribute(L"")];
 
