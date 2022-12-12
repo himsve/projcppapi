@@ -16,6 +16,32 @@ using namespace msclr::interop;
 
 namespace ProjCppApiCore
 {
+	public ref class EpsgPair {
+	private:
+		int m_code;
+		System::String ^ m_name;
+	public:
+		EpsgPair(void)
+		{
+		};
+		int GetCode()
+		{
+			return m_code;
+		};
+		void SetCode(int code)
+		{
+			m_code = code;
+		};
+		System::String ^ GetName()
+		{
+			return m_name;
+		};
+		void SetName(System::String ^ name)
+		{
+			m_name = name;
+		};
+	};
+
 	public ref class ProjCppApiCore
 	{
 	private:
@@ -37,16 +63,24 @@ namespace ProjCppApiCore
 
 			return gcnew String(cProjDbPath);
 		}
-		cli::array<System::Int32>^ GetAvailableEpsgCodes()
+		cli::array<EpsgPair^>^ GetAvailableEpsgCodes()
 		{
-			auto epsgCodes = p->GetAvailableEpsgCodes();
-			const int SIZE = epsgCodes.size();
-			cli::array<int>^ tempArr = gcnew cli::array<int>(SIZE);
+			//auto epsgCodes = p->GetAvailableEpsgCodes();
+			std::list<std::pair<int, string>> epsgCodes = p->GetAvailableEpsgCodes();
 
-			for (int i = 0; i < SIZE; i++)
+			const int SIZE = epsgCodes.size();
+			cli::array<EpsgPair^>^ tempArr = gcnew cli::array<EpsgPair^>(SIZE);
+
+			int i = 0;
+
+			for (auto it = epsgCodes.begin(); it != epsgCodes.end(); ++it)
 			{
-				tempArr[i] = epsgCodes[i];
-			}
+				tempArr[i] = gcnew EpsgPair;
+				tempArr[i]->SetCode(it->first);
+
+				String^ strName = gcnew String(it->second.c_str());
+				tempArr[i++]->SetName(strName);
+			}			
 			return tempArr;			  
 		}
 		bool SetProjDbPath(System::String^ strProjDbPath)

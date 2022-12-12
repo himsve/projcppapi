@@ -37,13 +37,21 @@ namespace AspCoreWebApi.Models
     public class ProjDatum
     {
         public ProjDatum()
-        {}
+        {
+        }
 
         public ProjDatum(int epsgCode) 
         {
             EpsgCode = epsgCode;
         }
-         
-        public int EpsgCode = 0;       
+
+        public ProjDatum(int epsgCode, string epsgName)
+        {
+            EpsgCode = epsgCode;
+            EpsgName = epsgName;
+        }
+
+        public int EpsgCode { get; set; } = 0;
+        public string EpsgName { get; set; } = "";
     }
 }

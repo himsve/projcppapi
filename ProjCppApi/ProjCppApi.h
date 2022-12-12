@@ -31,7 +31,7 @@ namespace ProjCppWrapper
 		PJ *m_transformation = nullptr;
 
 		PJ_AREA* m_pj_area = nullptr;
-		vector<int>* m_availableEpsgCodes = nullptr;
+		std::list<std::pair<int, string>>* m_availableEpsgCodes = nullptr;
 	public:
 		ProjCppWrapper();
 		~ProjCppWrapper();
@@ -49,7 +49,7 @@ namespace ProjCppWrapper
 			double& dFalseEasting,
 			double& dScaleFactor,
 			double& dLongitudeOfNaturalOrigin);
-		vector<int> GetAvailableEpsgCodes();
+		std::list<std::pair<int, string>> GetAvailableEpsgCodes();
 		bool DestroyProj();
 		bool InitializeProj(std::string strProj);
 		bool InitializeProj(const char* strSourceCrs, const char* strTargetCrs, const char* strAuthorityArea = nullptr);

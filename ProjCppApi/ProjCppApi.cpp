@@ -37,12 +37,12 @@ ProjCppWrapper::ProjCppWrapper::~ProjCppWrapper()
 	}
 }
 
-vector<int> ProjCppWrapper::ProjCppWrapper::GetAvailableEpsgCodes()
+std::list<std::pair<int, string>> ProjCppWrapper::ProjCppWrapper::GetAvailableEpsgCodes()
 {
 	if (m_availableEpsgCodes != nullptr)
 		return *m_availableEpsgCodes;
 
-	m_availableEpsgCodes = new vector<int>();
+	m_availableEpsgCodes = new std::list<std::pair<int, string>>();
 	
 	if (m_ctxt != nullptr)
 	{
@@ -74,7 +74,13 @@ vector<int> ProjCppWrapper::ProjCppWrapper::GetAvailableEpsgCodes()
 		for (int i = 0; i < result_count; i++)
 		{
 			auto code = listCrs2[i]->code;
-			m_availableEpsgCodes->push_back(atoi(code));
+			auto name = listCrs2[i]->name;
+
+			pair<int, string> p;
+			p.first = atoi(code);
+			p.second = name;
+
+			m_availableEpsgCodes->push_back(p);
 		}
 	}
 	return *m_availableEpsgCodes;
