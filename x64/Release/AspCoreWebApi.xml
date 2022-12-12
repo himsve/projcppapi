@@ -10,11 +10,11 @@
             </summary>
             <returns>Proj parameters</returns>
         </member>
-        <member name="M:AspCoreWebApi.Controllers.ProjTransController.GetProjTransformed(AspCoreWebApi.Models.EpsgCodesEnum,AspCoreWebApi.Models.EpsgCodesEnum)">
+        <member name="M:AspCoreWebApi.Controllers.ProjTransController.GetProjTransformed(AspCoreWebApi.Models.EpsgCodesEnum,AspCoreWebApi.Models.EpsgCodesEnum,System.Double,System.Double,System.Nullable{System.Double},System.Nullable{System.Double})">
             <summary>
             Get proj transformed coordinates
             </summary>
-            <returns>Transformed coordinates</returns>        
+            <returns>Transformed coordinates</returns>
         </member>
         <member name="M:AspCoreWebApi.Controllers.ProjTransController.UpdateProjTransformed(System.Int32,AspCoreWebApi.Models.ProjTransformDTO)">
             <summary>

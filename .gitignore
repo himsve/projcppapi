@@ -245,3 +245,5 @@ OpenAPI/bin/Release/netcoreapp3.1/OpenAPI.pdb
 OpenAPI/obj/openapiClient.cs,OpenAPI/obj/Release/netcoreapp3.1/.NETCoreApp,Version=v3.1.AssemblyAttributes.cs,OpenAPI/obj/Release/netcoreapp3.1/apphost.exe,OpenAPI/obj/Release/netcoreapp3.1/OpenAPI.AssemblyInfo.cs,OpenAPI/obj/Release/netcoreapp3.1/OpenAPI.csproj.CopyComplete,OpenAPI/obj/Release/netcoreapp3.1/OpenAPI.csproj.FileListAbsolute.txt,OpenAPI/obj/Release/netcoreapp3.1/OpenAPI.dll,OpenAPI/obj/Release/netcoreapp3.1/OpenAPI.GeneratedMSBuildEditorConfig.editorconfig,OpenAPI/obj/Release/netcoreapp3.1/OpenAPI.pdb
 OpenAPI/obj/
 ProjCppApiTest/x64/Release/vc143.pdb
+ProjVb/bin/Release/netcoreapp3.1/ProjVb.dll
+ProjVb/bin/Release/netcoreapp3.1/ProjVb.exe
