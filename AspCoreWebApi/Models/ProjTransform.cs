@@ -6,10 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AspCoreWebApi.Models
 {
-    //[Keyless]
+    [Keyless]
     public class ProjTransform
     {
-        public int Id {get;set;}
         public int EpsgCodeSource { get; set; } = 0;
         public int EpsgCodeTarget { get; set; } = 0;
         public int EpsgCodeArea { get; set; } = 0;

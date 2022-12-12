@@ -81,6 +81,15 @@ namespace ProjCppApiTest
 			bool res = wrapper.DestroyProj();
 			Assert::IsTrue(res);
 		}
+		TEST_METHOD(GetAvailableEpsgCodes)
+		{
+			ProjCppWrapper::ProjCppWrapper wrapper;
+
+			std::list<std::pair<int, string>> res = wrapper.GetAvailableEpsgCodes();			 
+
+			auto res2 = wrapper.DestroyProj();
+			Assert::IsTrue(res2);
+		}
 		TEST_METHOD(InitializeProj_EPSG7789_EPSG4936_EPSG1352)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;

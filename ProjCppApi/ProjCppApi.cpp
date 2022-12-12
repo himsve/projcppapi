@@ -49,24 +49,26 @@ std::list<std::pair<int, string>> ProjCppWrapper::ProjCppWrapper::GetAvailableEp
 		PROJ_CRS_LIST_PARAMETERS crsParam;
 
 		crsParam.bbox_valid = true;
-		crsParam.east_lon_degree = 30.0;
-		crsParam.north_lat_degree = 72.0;
+		crsParam.east_lon_degree = 32.0;
+		crsParam.north_lat_degree = 82.0;
 		crsParam.west_lon_degree = 5.0;
 		crsParam.south_lat_degree = 57.0;
 
 		crsParam.crs_area_of_use_contains_bbox = 1;
 		crsParam.celestial_body_name = "Earth";
 
+		crsParam.allow_deprecated = false;
+
 		const PJ_TYPE types[] = {
 			PJ_TYPE_VERTICAL_CRS,
 			PJ_TYPE_GEOCENTRIC_CRS,
 			PJ_TYPE_GEOGRAPHIC_3D_CRS,
-			//PJ_TYPE_GEOGRAPHIC_2D_CRS,
-			PJ_TYPE_PROJECTED_CRS
-		};
-
+			PJ_TYPE_GEOGRAPHIC_2D_CRS,
+			PJ_TYPE_PROJECTED_CRS,
+			PJ_TYPE_COMPOUND_CRS
+		};		 
 		crsParam.types = types;
-		crsParam.typesCount = 4;
+		crsParam.typesCount = 6;
 
 		int result_count = 0;
 		auto listCrs2 = proj_get_crs_info_list_from_database(m_ctxt, "EPSG", &crsParam, &result_count);		

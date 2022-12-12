@@ -28,7 +28,7 @@ namespace AspCoreWebApi.Controllers
             _projAppApiCore ??= new ProjCppApiCore.ProjCppApiCore();
             
             foreach (var epsg in _projAppApiCore.GetAvailableEpsgCodes())
-              _context.DbProjDatum.Add(new ProjDatum(epsg));
+              _context.DbProjDatum.Add(new ProjDatum(epsg.GetCode(), epsg.GetName()));
             
             _context.SaveChanges();
         }
@@ -186,8 +186,6 @@ namespace AspCoreWebApi.Controllers
         private static ProjTransformDTO ProjTransformToDTO(ProjTransform projTransform) =>
             new ProjTransformDTO
             {
-                Id = projTransform.Id,
-
                 EpsgCodeSource = projTransform.EpsgCodeSource,
                 EpsgCodeTarget = projTransform.EpsgCodeTarget,
                 EpsgCodeArea = projTransform.EpsgCodeArea, 

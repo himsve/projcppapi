@@ -17,7 +17,15 @@ namespace AspCoreWebApi.Models
         [Description("ED50 Lat/Lon 2D ")] Ed50LatLon2D = 4230
     }
 
-    public static class DatumListClass
+    public enum CoordinateTypeEnum
+    {
+        [Description("Lengdegrad / øst / X")] X,
+        [Description("Breddegrad / nord / Y")] Y,
+        [Description("Høyde / Z")] Z,
+        [Description("Tid / Epoke / T")] Epoch
+    }
+
+    public  /*static*/ class DatumListClass
     {
         public static List<string> DatumList
         {

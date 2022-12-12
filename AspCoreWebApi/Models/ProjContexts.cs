@@ -47,12 +47,13 @@ namespace AspCoreWebApi.Models
     public class ProjDatumDTO
     {
         public int EpsgCode { get; set; } = 0;
+        public string EpsgName { get; set; } = "";
+
     }
 
-    //[Keyless]
+    [Keyless]
     public class ProjTransformDTO
     {
-        public int Id { get; set; } = 0;
         public int EpsgCodeSource { get; set; } = 0;
         public int EpsgCodeTarget { get; set; } = 0;
         public int EpsgCodeArea { get; set; } = 0;

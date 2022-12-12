@@ -65,23 +65,22 @@ namespace ProjCppApiCore
 		}
 		cli::array<EpsgPair^>^ GetAvailableEpsgCodes()
 		{
-			//auto epsgCodes = p->GetAvailableEpsgCodes();
 			std::list<std::pair<int, string>> epsgCodes = p->GetAvailableEpsgCodes();
 
 			const int SIZE = epsgCodes.size();
-			cli::array<EpsgPair^>^ tempArr = gcnew cli::array<EpsgPair^>(SIZE);
+			cli::array<EpsgPair^>^ epsgCodesList = gcnew cli::array<EpsgPair^>(SIZE);
 
 			int i = 0;
 
 			for (auto it = epsgCodes.begin(); it != epsgCodes.end(); ++it)
 			{
-				tempArr[i] = gcnew EpsgPair;
-				tempArr[i]->SetCode(it->first);
+				epsgCodesList[i] = gcnew EpsgPair;
+				epsgCodesList[i]->SetCode(it->first);
 
 				String^ strName = gcnew String(it->second.c_str());
-				tempArr[i++]->SetName(strName);
+				epsgCodesList[i++]->SetName(strName);
 			}			
-			return tempArr;			  
+			return epsgCodesList;
 		}
 		bool SetProjDbPath(System::String^ strProjDbPath)
 		{
