@@ -48,6 +48,8 @@ namespace AspCoreWebApi
                         Description = "Transformasjon av koordinater" 
                     });
 
+                c.DescribeAllParametersInCamelCase();
+
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 

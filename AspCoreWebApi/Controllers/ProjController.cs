@@ -1,13 +1,13 @@
-﻿using AspCoreWebApi.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AspCoreWebApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ProjCppApiCore;
 
 namespace AspCoreWebApi.Controllers
@@ -60,10 +60,10 @@ namespace AspCoreWebApi.Controllers
         private static ProjDatumDTO ProjInfoToDTO(ProjDatum projDatum) =>
           new ProjDatumDTO
           {
-              EpsgCode = projDatum.EpsgCode
+              EpsgCode = projDatum.EpsgCode,
+              EpsgName = projDatum.EpsgName
           };
     }
-
 
     [Authorize]
     [ApiController]

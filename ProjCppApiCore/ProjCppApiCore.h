@@ -67,7 +67,7 @@ namespace ProjCppApiCore
 		{
 			std::list<std::pair<int, string>> epsgCodes = p->GetAvailableEpsgCodes();
 
-			const int SIZE = epsgCodes.size();
+			const int SIZE = (int)epsgCodes.size();
 			cli::array<EpsgPair^>^ epsgCodesList = gcnew cli::array<EpsgPair^>(SIZE);
 
 			int i = 0;

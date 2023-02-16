@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspCoreWebApi.Models
 {
@@ -23,8 +23,8 @@ namespace AspCoreWebApi.Models
         public ProjCppApiCore.ProjCppApiCore ProjObject
         {
             get => _projAppApiCore ??= new ProjCppApiCore.ProjCppApiCore();
-        }   
-                
+        }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProjDatum>(entity =>
@@ -48,7 +48,6 @@ namespace AspCoreWebApi.Models
     {
         public int EpsgCode { get; set; } = 0;
         public string EpsgName { get; set; } = "";
-
     }
 
     [Keyless]
