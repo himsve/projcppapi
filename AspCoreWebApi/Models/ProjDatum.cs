@@ -25,6 +25,7 @@ namespace AspCoreWebApi.Models
         [Description("Tid / Epoke / T")] Epoch
     }
 
+    // TEST:
     public  /*static*/ class DatumListClass
     {
         public static List<string> DatumList

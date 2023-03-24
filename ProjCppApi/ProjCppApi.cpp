@@ -11,18 +11,6 @@ using namespace NS_PROJ::metadata;
 
 ProjCppWrapper::ProjCppWrapper::ProjCppWrapper()
 {	
-	// Test på om PROJ_LIB funkar
-	if (false)
-	{
-		char* libvar;
-
-		libvar = std::getenv("PROJ_LIB");
-		size_t requiredSize = 100;
-		auto res = getenv_s(&requiredSize, NULL, 0, "PROJ_LIB");
-
-		//std::cout << "PROJ_LIB is: " << res << '\n';
-	}
-	
 	m_ctxt = proj_context_create();
 
 	proj_log_level(m_ctxt, PJ_LOG_LEVEL::PJ_LOG_NONE);
@@ -59,16 +47,19 @@ std::list<std::pair<int, string>> ProjCppWrapper::ProjCppWrapper::GetAvailableEp
 
 		crsParam.allow_deprecated = false;
 
-		const PJ_TYPE types[] = {
+		const PJ_TYPE types[] = 
+		{
 			PJ_TYPE_VERTICAL_CRS,
 			PJ_TYPE_GEOCENTRIC_CRS,
 			PJ_TYPE_GEOGRAPHIC_3D_CRS,
 			PJ_TYPE_GEOGRAPHIC_2D_CRS,
 			PJ_TYPE_PROJECTED_CRS,
-			PJ_TYPE_COMPOUND_CRS
-		};		 
+			PJ_TYPE_COMPOUND_CRS,
+			PJ_TYPE_GEOGRAPHIC_CRS,
+			PJ_TYPE_GEODETIC_CRS
+		};
 		crsParam.types = types;
-		crsParam.typesCount = 6;
+		crsParam.typesCount = 8;
 
 		int result_count = 0;
 		auto listCrs2 = proj_get_crs_info_list_from_database(m_ctxt, "EPSG", &crsParam, &result_count);		
@@ -79,6 +70,7 @@ std::list<std::pair<int, string>> ProjCppWrapper::ProjCppWrapper::GetAvailableEp
 			auto name = listCrs2[i]->name;
 
 			pair<int, string> p;
+
 			p.first = atoi(code);
 			p.second = name;
 
@@ -419,10 +411,19 @@ bool ProjCppWrapper::ProjCppWrapper::Transform(double xInput, double yInput, dou
 	PJ_COORD inputCoord;
 	PJ_COORD outputCoord;
 
-	inputCoord.xyzt.x = xInput;
-	inputCoord.xyzt.y = yInput;
-	inputCoord.xyzt.z = zInput;
-	inputCoord.xyzt.t = epoch;
+	auto type = proj_get_type(m_src);
+	if (type == PJ_TYPE_GEOGRAPHIC_3D_CRS || type == PJ_TYPE_GEOGRAPHIC_2D_CRS)
+	{
+		inputCoord.xyzt.x = yInput ;
+		inputCoord.xyzt.y = xInput;
+	}
+	else
+	{
+		inputCoord.xyzt.x = xInput;
+		inputCoord.xyzt.y = yInput;
+		inputCoord.xyzt.z = zInput;
+		inputCoord.xyzt.t = epoch;
+	}	
 
 	if (proj_angular_input(m_transformation, PJ_FWD))
 	{
