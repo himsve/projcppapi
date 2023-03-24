@@ -1,51 +1,60 @@
 # projcppapi
 
-Denne Visual Studio solution inneheld testar med kall mot Proj sitt API.
+Repoet *projcppapi* er ein wrapper rundt Proj i C++ managed code, C++ unmanaged code og c# .net og .netcore. projcppapi er utvikla i VS2022 Pro. Solution kallar C-API'et i Proj.
 
+## Installasjon av Proj
 
+Fyrst, installer Proj, gjerne i Anaconda. 
 
-### ProjCppApiLinkedDll:
+``conda install -c conda-forge proj``
 
-I dette prosjektet er Proj-API'et linka inn som dll. Namnet på dll'en som er brukt er proj_7_1.dll.
+## Miljøvariablar 
 
-Includefolderen (..\Library\include) til Proj må endrast i "Additional Include Directories" i Visual Studio, t.d. "C:\Users\himsve\Miniconda3\Library\include".
-Pathen til ressursfolderen (..\share\proj) må også endrast. Pathen er definert som "resourcePath" i ProjCppApi.cpp.
+VS-solution forventar at miljøvariabelen *PROJ_DATA* er sett.
 
+Eksempel:
 
+``set PROJ_DATA=<datafolder>\Library\share\proj``
 
-### ProjCppApiLinkedLib:
+## Synking av ressursfiler
 
-I dette prosjektet er Proj-API'et linka inn som lib. Namnet på det statisk bibliotektet er proj.lib, eller proj_d.lib for debug. 
+Norske ressursfiler må synkast frå proj.cdn.org. Mange av transformasjonane er avhengig av at ressursfilene ligg nedlasta lokalt.
 
-Includefolderen (..\Library\include) til Proj må endrast i "Additional Include Directories" i Visual Studio, t.d. "C:\Users\himsve\Miniconda3\Library\include".
-Libfoldern (..\Library\lib) til Proj må endrast i "Library Directories" i VS, t.d. "C:\Users\himsve\Miniconda3\Library\lib";
-Pathen til ressursfolderen (..\share\proj) må også endrast. Pathen er definert som "resourcePath" i ProjCppApi.cpp.
-Lib-fila må også refererast fysisk i Visual Studio. Fila skal referast i "Addition Dependencies" i VS, t.d. "C:\Users\himsve\Miniconda3\Library\lib\proj.lib".
+Synking av norske filer:
 
-Dette VS-prosjektet vil ikkje fungere utan debugversjonen av det statisk biblioteket. Namnet på fila er "proj_d.lib". 
-
-
-### Resources:
-
-Dette repositoriet inneheld flg. ressursfiler:
-
-- EUREF89_NGO48_20081014.ct2 (2D-transformasjon EUREF89->NGO48)
-
-
-### Pathar
-
-I Windows må ein leggje inn flg. pathar i "Environment variblar"
-
-- ..\Library\bin (t.d "C:\Users\himsve\Miniconda3\Library\bin")
-- ..\Library\lib (t.d "C:\Users\himsve\Miniconda3\Library\lib")
-- ..\share\proj (t.d. "C:\Users\himsve\Miniconda3\share\proj")
+``projsync --bbox 4,57,33,82``
  
 
+Denne Visual Studio solution inneheld testar med kall mot Proj sitt API. 
+
+### ProjCppApi:
+
+I dette prosjektet er Proj-API'et linka inn som lib. Namnet på det statisk bibliotektet er proj.lib, eller proj_d.lib for debug. Prosjektet blir kompilert både som unmanaged c++.
+
+### ProjCppApiCore
+
+Projektet er ProjCppApi som unmanaged i rammeverket .netcore 3.1.
 
 
+### ProjCoreApi
+
+*ProjCoreApi* er c#-kode som brukar *ProjCppApiCore*.
 
 
+### ProjCppApiNet
+
+*ProjCppApiNet* er c#-kode som brukar *ProjCppApiCore* i rammeverket .net v4.7.2.
 
 
+### ProjCppApiTest
+
+Prosjektet *ProjCppApiTest* er stress- og enheitstestar av ProjCppApi
 
 
+### AspCoreWebApi
+
+Under utvikling
+
+### AspCoreWebApp
+
+Under utvikling

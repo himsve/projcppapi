@@ -97,7 +97,7 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(PROJ_LIB)\..\..\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>%(AdditionalDependencies);..\x64\Debug\ProjCppApi.lib;$(PROJ_LIB)\..\..\lib\proj.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);..\x64\Debug\ProjCppApi.lib;$(PROJ_DATA)\..\..\lib\proj.lib</AdditionalDependencies>
     </Link>
     <ProjectReference>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
