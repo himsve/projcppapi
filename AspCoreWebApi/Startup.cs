@@ -33,7 +33,7 @@ namespace AspCoreWebApi
         {
             services.AddDbContext<ProjContexts>(opt => opt.UseInMemoryDatabase(nameof(ProjContexts.DbProjDatum)));
             services.AddDbContext<ProjContexts>(opt => opt.UseInMemoryDatabase(nameof(ProjContexts.DbProjTransform)));
-            services.AddDbContext<ProjContexts>(opt => opt.UseInMemoryDatabase(nameof(ProjContexts.ProjObject)));
+           // services.AddDbContext<ProjContexts>(opt => opt.UseInMemoryDatabase(nameof(ProjContexts.ProjObject)));
 
             services.AddControllers();            
             //services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
@@ -66,9 +66,9 @@ namespace AspCoreWebApi
                 app.UseDeveloperExceptionPage();            
 
             app.UseHttpsRedirection();
-
+            
             app.UseRouting();
-
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

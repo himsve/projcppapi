@@ -93,32 +93,63 @@ namespace AspCoreWebApi.Controllers
         /// <summary>
         /// Get proj transformed coordinates
         /// </summary>
-        /// <returns>Transformed coordinates</returns>        
+        /// <returns>Transformed coordinates</returns>
         [HttpGet]
+        [Route("{EpsgSource}/{EpsgTarget}/{X}/{Y}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ProjTransformDTO>> GetProjTransformed(EpsgCodesEnum EpsgSourceTull, EpsgCodesEnum EpsgTarget)
-        {
+        public async Task<ActionResult<ProjTransformDTO>> GetProjTransformed(
+            EpsgCodesEnum EpsgSource, EpsgCodesEnum EpsgTarget,
+            [FromRoute] double X, [FromRoute] double Y,  double? Z = null, double? Epoch = null)
+            //ProjDatum projDatum = null)
+            {
+            // TEST:
+            var ewwe = Enum<EpsgCodesEnum>.GetAllValuesAsIEnumerable();
+            
             if (_projDatumDbSet == null)
                 return NoContent();
-
+            
             ProjTransform projTrans = null;
 
-            if (_context.DbProjTransform.Any(x => x.EpsgCodeSource == (int)EpsgSourceTull && x.EpsgCodeTarget == (int)EpsgTarget))
-                projTrans = await _context.DbProjTransform.FindAsync(EpsgSourceTull/*, EpsgTarget*/);
+            if (_context.DbProjTransform.Any(x => x.EpsgCodeSource == (int)EpsgSource && x.EpsgCodeTarget == (int)EpsgTarget))
+                projTrans = await _context.DbProjTransform.FindAsync(EpsgSource/*, EpsgTarget*/);
 
             if (projTrans == null)
             {
                 projTrans = new ProjTransform()
                 {
-                    EpsgCodeSource = (int)EpsgSourceTull,
-                    EpsgCodeTarget = (int)EpsgTarget
+                    EpsgCodeSource = (int)EpsgSource,
+                    EpsgCodeTarget = (int)EpsgTarget,
+
+                    XInput = X,
+                    YInput = Y,
+                    ZInput = Z.HasValue ? Z.Value : 0d,
+                    Epoch= Epoch.HasValue ? Epoch.Value : 0d 
                 };
-                await _context.DbProjTransform.AddAsync(projTrans);
-                await _context.SaveChangesAsync();
+                //await _context.DbProjTransform.AddAsync(projTrans);
+               // await _context.SaveChangesAsync();
 
                 // return NotFound();
             }
+
+            // Dette er ein test:          
+            if (_projAppApiCore.InitializeProj("EPSG:" + (int)EpsgSource, "EPSG:" + (int)EpsgTarget, ""))
+            {
+                double XOutput = 0d;
+                double YOutput = 0d;
+                double ZOutput = 0d;
+
+                _projAppApiCore.Transform(X, Y, 0, 0, ref XOutput, ref YOutput, ref ZOutput);
+
+                projTrans.XOutput = XOutput;
+                projTrans.YOutput = YOutput;
+                projTrans.ZOutput = ZOutput;
+
+                projTrans.Epoch = Epoch.HasValue ? Epoch.Value : 0d;
+            }
+            else
+                return NoContent();
+           
             return ProjTransformToDTO(projTrans);
         }
 
