@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28917.181
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProjCppApi", "ProjCppApi\ProjCppApi.vcxproj", "{19030EFD-1CA0-4B12-8818-641EAF69093A}"
 EndProject
@@ -31,8 +31,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspCoreWebApi", "AspCoreWebApi\AspCoreWebApi.csproj", "{282E773B-696F-4E26-8879-EB872A8A6D68}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspCoreWebApp", "AspCoreWebApp\AspCoreWebApp.csproj", "{FE91E778-EC9F-4069-A0EA-93280D1F6879}"
-EndProject
-Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "ProjVb", "ProjVb\ProjVb.vbproj", "{037D9BDA-72F6-40C3-9187-90492569131F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -192,26 +190,6 @@ Global
 		{FE91E778-EC9F-4069-A0EA-93280D1F6879}.Release|x64.Build.0 = Release|Any CPU
 		{FE91E778-EC9F-4069-A0EA-93280D1F6879}.Release|x86.ActiveCfg = Release|Any CPU
 		{FE91E778-EC9F-4069-A0EA-93280D1F6879}.Release|x86.Build.0 = Release|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Debug|ARM.Build.0 = Debug|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Debug|x64.Build.0 = Debug|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Debug|x86.Build.0 = Debug|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Release|ARM.ActiveCfg = Release|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Release|ARM.Build.0 = Release|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Release|ARM64.Build.0 = Release|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Release|x64.ActiveCfg = Release|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Release|x64.Build.0 = Release|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Release|x86.ActiveCfg = Release|Any CPU
-		{037D9BDA-72F6-40C3-9187-90492569131F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
