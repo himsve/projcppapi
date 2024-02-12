@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "ProjCppApi.h"
+#include "ProjCppApiDll.h"
 #include "proj.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -117,13 +118,22 @@ namespace ProjCppApiTest
 		TEST_METHOD(Transform_LatLon_To_Utm_Stresstest)
 		{
 			ProjCppWrapper::ProjCppWrapper wrapper;
+			ProjDllWrapper::ProjDllWrapper dllWrapper;
 
+			bool dllRes = dllWrapper.InitializeProj("+proj=utm +ellps=GRS80 +zone=32");
+			Assert::IsTrue(dllRes);
+
+			dllRes = dllWrapper.InitializeProj("EPSG:7912", "EPSG:4937", "EPSG:1352");
+			Assert::IsTrue(dllRes);
+			
 			bool res = wrapper.InitializeProj("+proj=utm +ellps=GRS80 +zone=32");
 			Assert::IsTrue(res);
 
 			double xInput = 10, yInput = 60, zInput = 100.0;
 			double epoch = 2020.0;
 			double xOutput = 0.0, yOutput = 0.0, zOutput = 0.0;
+
+			dllRes = dllWrapper.Transform(yInput, xInput, zInput, epoch, xOutput, yOutput, zOutput);
 
 			for (int i = 0; i < noOfPoint; i++)
 			{

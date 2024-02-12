@@ -319,9 +319,9 @@ bool ProjCppWrapper::ProjCppWrapper::InitializeProj(const char* strSourceCrs, co
 
 			const std::string& areaAuth = tokens[0];
 			const std::string& areaCode = tokens[1];
-
+						
 			DatabaseContextPtr dbContext = DatabaseContext::create(resourcePath).as_nullable();
-			ExtentPtr bboxFilter = AuthorityFactory::create(NN_NO_CHECK(dbContext), areaAuth)->createExtent(areaCode).as_nullable();
+			ExtentPtr bboxFilter = AuthorityFactory::create(NN_NO_CHECK(dbContext), areaAuth)->createExtent(areaCode).as_nullable();			
 
 			if (bboxFilter)
 			{
@@ -414,7 +414,7 @@ bool ProjCppWrapper::ProjCppWrapper::Transform(double xInput, double yInput, dou
 	auto type = proj_get_type(m_src);
 	if (type == PJ_TYPE_GEOGRAPHIC_3D_CRS || type == PJ_TYPE_GEOGRAPHIC_2D_CRS)
 	{
-		inputCoord.xyzt.x = yInput ;
+		inputCoord.xyzt.x = yInput;
 		inputCoord.xyzt.y = xInput;
 	}
 	else
